@@ -3,16 +3,17 @@
 #include <cstdlib>
 #include <vector>
 #include <iostream>
+#include "util.h"
 
-Animal::Animal(int energy) : energy(energy) {
-    this->x = std::rand() % ROWS;
-    this->y = std::rand() % COLS;
+Animal::Animal(int energy_) : energy(energy_) {
+    this->x = rand_int(0, ROWS-1);
+    this->y = rand_int(0, COLS-1);
     // std::cout << "Random placement: x = " << this->x << ", y = " << this->y << std::endl;
 }
 
-Animal::Animal(int energy, int x, int y) : energy(energy), x(x), y(y) {}
+Animal::Animal(int energy_, int x_, int y_) : energy(energy_), x(x_), y(y_) {}
 
 void Animal::move() {
-    this->x = (x + (std::rand() % 3 - 1) + ROWS) % ROWS;
-    this->y = (y + (std::rand() % 3 - 1) + COLS) % COLS;
+    this->x = (x + (rand_int(-1, 1) ) + ROWS) % ROWS;
+    this->y = (y + (rand_int(-1, 1)) + COLS) % COLS;
 }

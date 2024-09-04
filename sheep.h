@@ -13,7 +13,7 @@ class Sheep : public Animal {
         Sheep(int energy, int x, int y);
 
         void eatGrass(Patch &patch);
-        void reproduceSheep();
+        Sheep reproduceSheep();
 };
 
 

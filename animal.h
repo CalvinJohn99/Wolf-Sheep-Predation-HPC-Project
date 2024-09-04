@@ -5,11 +5,11 @@
 
 class Animal {
     public:
-        int x, y;
         int energy;
-
-        Animal(int energy);
-        Animal(int energy, int x, int y);
+        int x, y;
+        
+        Animal(int energy_);
+        Animal(int energy_, int x_, int y_);
 
         void move();
 };

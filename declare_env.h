@@ -7,20 +7,20 @@
 #include "wolf.h"
 #include "animal.h"
 
-const std::string SHEEP_WOLVES_GRASS = "sheep-wolves-grass";
-const std::string SHEEP_WOLVES = "sheep-wolves";
+extern std::string SHEEP_WOLVES_GRASS;
+extern std::string SHEEP_WOLVES;
 
-const int ROWS = 1000;
-const int COLS = 1000;
+extern int ROWS;
+extern int COLS;
 
-const int sheepGainFromFood = 4;
-const int wolfGainFromFood = 20;
-const int grassRegrowthTime = 30;
-const int initialNumberSheep = 100;
-const int initialNumberWolves = 50;
-const int maxSheep = 1000;
-const float sheepReproduce = 0.04f;
-const float wolfReproduce = 0.05f;
-const bool showEnergy = true;
+extern int sheepGainFromFood;
+extern int wolfGainFromFood;
+extern int grassRegrowthTime;
+extern int initialNumberSheep;
+extern int initialNumberWolves;
+extern int maxSheep;
+extern float sheepReproduce;
+extern float wolfReproduce;
+extern bool showEnergy;
 
 #endif

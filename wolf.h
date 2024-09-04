@@ -15,7 +15,7 @@ class Wolf : public Animal {
 
         void eatSheep(Sheep &sheep);
 
-        void reproduceWolf();
+        Wolf reproduceWolf();
 };
 
 #endif

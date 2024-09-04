@@ -9,10 +9,12 @@
 #include <thread>
 #include <chrono>
 #include "declare_env.h"
+#include "util.h"
 
 std::vector<std::vector<Patch>> patches(ROWS, std::vector<Patch>(COLS));
 int ticks = 0;
 std::string modelVersion = SHEEP_WOLVES_GRASS;
+
 
 void displayLabels() {
     if (showEnergy) {
@@ -54,12 +56,12 @@ void setup () {
     for (int i = 0; i < ROWS; ++i) {
         for (int j = 0; j < COLS; ++j) {
             if (modelVersion == SHEEP_WOLVES_GRASS) {
-                if (std::rand() % 2 == 0) {
+                if (rand_int(0, 1) == 0) {
                     patches[i][j].setColor(Patch::Color::Green);
                     patches[i][j].setCountdown(grassRegrowthTime);
                 } else {
                     patches[i][j].setColor(Patch::Color::Brown);
-                    patches[i][j].setCountdown(std::rand() % grassRegrowthTime);
+                    patches[i][j].setCountdown(rand_int(0, grassRegrowthTime-1));
                 }
             } else {
                 patches[i][j].setColor(Patch::Color::Green);
@@ -69,13 +71,13 @@ void setup () {
 
     // create the sheep
     for (int i = 0; i < initialNumberSheep; ++i) {
-        int initialEnergy = std::rand() % (2 * sheepGainFromFood);
+        int initialEnergy = rand_int(0, 2 * sheepGainFromFood - 1);
         Sheep::sheepFlock.push_back(Sheep(initialEnergy));
     }
 
     // create the wolves
     for (int i = 0; i < initialNumberWolves; ++i) { // pre-increment for performance and best practice
-        int initialEnergy = std::rand() % (2 * wolfGainFromFood);
+        int initialEnergy = rand_int(0, 2 * wolfGainFromFood - 1);
         Wolf::wolfPack.push_back(Wolf(initialEnergy));
     }
 
@@ -84,54 +86,60 @@ void setup () {
 }
 
 void go () {
-
     ++ticks;
 
-    // Using iterator loops, since we need to remove sheep/wolves when they die
     // Simulate the sheep
-    for (auto it = Sheep::sheepFlock.begin(); it != Sheep::sheepFlock.end();) { // "it" is of type std::vector<Sheep>::iterator
-        it->move(); // it behaves like pointer, needs dereferenced usage of methods
-
+    std::vector<Sheep> newSheepFlock;
+    for (Sheep &sheep : Sheep::sheepFlock) {
+        sheep.move();
         if (modelVersion == SHEEP_WOLVES_GRASS) {
-            it->energy -= 1; 
+            sheep.energy -= 1; 
 
-            std::cerr << "Sheep (wants to eat grass patch) at : " << it->x << ", " << it->y << "\n";
-            // std::cout << "Move placement: x = " << it->x << ", y = " << it->y << std::endl;
-            Patch &currentPatch = patches[it->x][it->y];
-            it->eatGrass(currentPatch); 
+            // std::cerr << "Sheep (wants to eat grass patch) at : " << it->x << ", " << it->y << "\n";
+            Patch &currentPatch = patches[sheep.x][sheep.y];
+            sheep.eatGrass(currentPatch); 
 
-            if (it->energy < 0) {
-                it = Sheep::sheepFlock.erase(it); // Sheep dies, next sheep passed to "it"
-                continue;
+            if (sheep.energy >= 0) {
+                newSheepFlock.push_back(sheep);
+                if (rand_double() < sheepReproduce) {
+                    newSheepFlock.push_back(sheep.reproduceSheep());
+                }
+            } 
+        } else {
+            if (rand_double() < sheepReproduce) {
+                newSheepFlock.push_back(sheep.reproduceSheep());
             }
         }
-        it->reproduceSheep();
-        ++it; // increment only happens is no sheep was removed
     }
-
+    Sheep::sheepFlock = newSheepFlock;
+    
     // Simulate the wolves
-    for (auto it = Wolf::wolfPack.begin(); it != Wolf::wolfPack.end();) {
-        it->move();
-        it->energy -= 1; 
+    std::vector<Wolf> newWolfPack;
+    for (Wolf &wolf: Wolf::wolfPack) {
+        wolf.move();
+        wolf.energy -= 1; 
 
         // Wolves eat sheep
-        for (auto sheepIt = Sheep::sheepFlock.begin(); sheepIt != Sheep::sheepFlock.end();) {
-            if (sheepIt->x == it->x && sheepIt->y == it->y) {
-                it->eatSheep(*sheepIt);
-                sheepIt = Sheep::sheepFlock.erase(sheepIt); // Sheep dies
+        newSheepFlock.clear();
+        for (Sheep &sheep : Sheep::sheepFlock) {
+            if (sheep.x == wolf.x && sheep.y == wolf.y) {
+                wolf.eatSheep(sheep);
+                // sheepIt = Sheep::sheepFlock.erase(sheepIt); 
             } else {
-                ++sheepIt;
+                newSheepFlock.push_back(sheep);
             }
         }
+        Sheep::sheepFlock = newSheepFlock;
 
         // Wolves death condition
-        if (it->energy < 0) {
-            it = Wolf::wolfPack.erase(it);
-        } else {
-            it->reproduceWolf();
-            ++it;
-        }
+        if (wolf.energy >= 0) {
+            newWolfPack.push_back(wolf);
+            if (rand_double() < wolfReproduce) {
+                newWolfPack.push_back(wolf.reproduceWolf());
+            }
+        } 
     }
+    Wolf::wolfPack = newWolfPack;
 
     // Grow the grass
     if (modelVersion == SHEEP_WOLVES_GRASS) {
@@ -164,8 +172,8 @@ int main () {
 
       go();
 
-      // sleep between ticks
-      std::this_thread::sleep_for(std::chrono::milliseconds(250));
+    // sleep between ticks to simulate
+    //   std::this_thread::sleep_for(std::chrono::milliseconds(250));
     }
 
     std::cout << "sheepFlock size: " << Sheep::sheepFlock.size() << "\n";
