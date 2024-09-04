@@ -1,0 +1,21 @@
+#ifndef WOLF_H
+#define WOLF_H
+
+#include "animal.h"
+#include "declare_env.h"
+#include "sheep.h"
+#include <vector>
+
+class Wolf : public Animal {
+    public:
+        static std::vector<Wolf> wolfPack;
+
+        Wolf(int energy);
+        Wolf(int energy , int x, int y);
+
+        void eatSheep(Sheep &sheep);
+
+        void reproduceWolf();
+};
+
+#endif
