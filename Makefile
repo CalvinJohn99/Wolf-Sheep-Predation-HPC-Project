@@ -8,7 +8,7 @@ EXEC=main
 all: $(EXEC)
 
 $(EXEC): $(OBJS)
-	$(CC) $^ -o $@
+	$(CC) -pg $^ -o $@
 
 %.o: %.cpp
 	$(CC) $(CFLAGS) -c $< -o $@

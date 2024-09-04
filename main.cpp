@@ -156,12 +156,15 @@ void go () {
 }
 
 int main () {
+    // std::chrono::steady_clock::time_point startTime = std::chrono::steady_clock::now();
+
     setup();
 
+    int counter = 0;
     while (true) {
       std::cout << "Checking conditions...\n";
 
-      if (Wolf::wolfPack.empty() && Sheep::sheepFlock.size() > maxSheep) {
+      if (Wolf::wolfPack.empty() && (int) Sheep::sheepFlock.size() > maxSheep) {
         std::cout << "The sheep have inherited the earth" << "\n";
         break;
       }
@@ -171,10 +174,21 @@ int main () {
       }
 
       go();
+      counter++;
+
+      if (counter >= 150) {
+        break;
+      }
 
     // sleep between ticks to simulate
     //   std::this_thread::sleep_for(std::chrono::milliseconds(250));
     }
+
+    // std::chrono::steady_clock::time_point stopTime = std::chrono::steady_clock::now();
+    // std::chrono::duration<double> time_span = (std::chrono::duration_cast<std::chrono::duration<double>>(stopTime - startTime));
+    // double dt = time_span.count();
+    // std::cout << "Time to run main (timespan dt): " << dt << "\n"; 
+
 
     std::cout << "sheepFlock size: " << Sheep::sheepFlock.size() << "\n";
     std::cout << "wolfPack size: " << Wolf::wolfPack.size() << "\n";
