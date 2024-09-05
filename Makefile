@@ -14,6 +14,7 @@ $(EXEC): $(OBJS)
 	$(CC) -pg $^ -o $@
 	# $(CC) $^ -o $@
 
+	
 %.o: %.cpp
 	$(CC) $(CFLAGS) -c $< -o $@
 

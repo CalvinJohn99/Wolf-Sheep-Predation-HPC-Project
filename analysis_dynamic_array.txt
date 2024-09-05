@@ -1,0 +1,561 @@
+Flat profile:
+
+Each sample counts as 0.01 seconds.
+  %   cumulative   self              self     total           
+ time   seconds   seconds    calls  ms/call  ms/call  name    
+ 52.63      0.10     0.10     1000     0.10     0.17  go()
+ 15.79      0.13     0.03     2304     0.01     0.01  std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>::_M_gen_rand()
+ 10.53      0.15     0.02     1000     0.02     0.02  grass()
+  5.26      0.16     0.01   802749     0.00     0.00  unsigned int std::uniform_int_distribution<int>::_S_nd<unsigned long, std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>, unsigned int>(std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>&, unsigned int)
+  5.26      0.17     0.01   802749     0.00     0.00  std::uniform_int_distribution<int>::uniform_int_distribution(int, int)
+  5.26      0.18     0.01   342951     0.00     0.00  Animal::move()
+  5.26      0.19     0.01                             _init
+  0.00      0.19     0.00  3600000     0.00     0.00  Patch::growGrass(int)
+  0.00      0.19     0.00  3600000     0.00     0.00  Patch::getColor() const
+  0.00      0.19     0.00  1605498     0.00     0.00  std::uniform_int_distribution<int>::param_type::a() const
+  0.00      0.19     0.00  1437419     0.00     0.00  std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>::operator()()
+  0.00      0.19     0.00   802749     0.00     0.00  rand_int(int, int)
+  0.00      0.19     0.00   802749     0.00     0.00  std::uniform_int_distribution<int>::param_type::b() const
+  0.00      0.19     0.00   802749     0.00     0.00  std::uniform_int_distribution<int>::param_type::param_type(int, int)
+  0.00      0.19     0.00   802749     0.00     0.00  int std::uniform_int_distribution<int>::operator()<std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul> >(std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>&)
+  0.00      0.19     0.00   802749     0.00     0.00  int std::uniform_int_distribution<int>::operator()<std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul> >(std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>&, std::uniform_int_distribution<int>::param_type const&)
+  0.00      0.19     0.00   634670     0.00     0.00  std::uniform_real_distribution<double>::param_type::a() const
+  0.00      0.19     0.00   634670     0.00     0.00  std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>::min()
+  0.00      0.19     0.00   499923     0.00     0.00  std::remove_reference<Sheep*&>::type&& std::move<Sheep*&>(Sheep*&)
+  0.00      0.19     0.00   331798     0.00     0.00  std::char_traits<char>::compare(char const*, char const*, unsigned long)
+  0.00      0.19     0.00   331798     0.00     0.00  __gnu_cxx::__enable_if<std::__is_char<char>::__value, bool>::__type std::operator==<char>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)
+  0.00      0.19     0.00   317335     0.00     0.00  rand_double()
+  0.00      0.19     0.00   317335     0.00     0.00  std::uniform_real_distribution<double>::param_type::b() const
+  0.00      0.19     0.00   317335     0.00     0.00  std::uniform_real_distribution<double>::param_type::param_type(double, double)
+  0.00      0.19     0.00   317335     0.00     0.00  std::uniform_real_distribution<double>::uniform_real_distribution(double, double)
+  0.00      0.19     0.00   317335     0.00     0.00  double std::uniform_real_distribution<double>::operator()<std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul> >(std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>&)
+  0.00      0.19     0.00   317335     0.00     0.00  double std::uniform_real_distribution<double>::operator()<std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul> >(std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>&, std::uniform_real_distribution<double>::param_type const&)
+  0.00      0.19     0.00   317335     0.00     0.00  std::__detail::_Adaptor<std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>, double>::_Adaptor(std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>&)
+  0.00      0.19     0.00   317335     0.00     0.00  std::__detail::_Adaptor<std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>, double>::operator()()
+  0.00      0.19     0.00   317335     0.00     0.00  double std::generate_canonical<double, 53ul, std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul> >(std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>&)
+  0.00      0.19     0.00   166641     0.00     0.00  std::enable_if<std::__and_<std::__not_<std::__is_tuple_like<Sheep*> >, std::is_move_constructible<Sheep*>, std::is_move_assignable<Sheep*> >::value, void>::type std::swap<Sheep*>(Sheep*&, Sheep*&)
+  0.00      0.19     0.00   163040     0.00     0.00  Sheep::eatGrass(Patch&)
+  0.00      0.19     0.00    41405     0.00     0.00  Patch::setColor(Patch::Color)
+  0.00      0.19     0.00    37150     0.00     0.00  Animal::Animal()
+  0.00      0.19     0.00    20100     0.00     0.00  Sheep::Sheep()
+  0.00      0.19     0.00    17050     0.00     0.00  Wolf::Wolf()
+  0.00      0.19     0.00    14270     0.00     0.00  Animal::Animal(int, int, int)
+  0.00      0.19     0.00     7793     0.00     0.00  Wolf::reproduceWolf()
+  0.00      0.19     0.00     7793     0.00     0.00  Wolf::Wolf(int, int, int)
+  0.00      0.19     0.00     6477     0.00     0.00  Sheep::reproduceSheep()
+  0.00      0.19     0.00     6477     0.00     0.00  Sheep::Sheep(int, int, int)
+  0.00      0.19     0.00     3600     0.00     0.00  Patch::setCountdown(int)
+  0.00      0.19     0.00     3600     0.00     0.00  Patch::Patch()
+  0.00      0.19     0.00     3000     0.00     0.00  std::remove_reference<Wolf*&>::type&& std::move<Wolf*&>(Wolf*&)
+  0.00      0.19     0.00     2889     0.00     0.00  Wolf::eatSheep(Sheep&)
+  0.00      0.19     0.00     1001     0.00     0.00  displayLabels()
+  0.00      0.19     0.00     1000     0.00     0.00  std::enable_if<std::__and_<std::__not_<std::__is_tuple_like<Wolf*> >, std::is_move_constructible<Wolf*>, std::is_move_assignable<Wolf*> >::value, void>::type std::swap<Wolf*>(Wolf*&, Wolf*&)
+  0.00      0.19     0.00      624     0.00     0.00  std::__detail::_Mod<unsigned long, 4294967296ul, 1ul, 0ul, true, true>::__calc(unsigned long)
+  0.00      0.19     0.00      624     0.00     0.00  unsigned long std::__detail::__mod<unsigned long, 4294967296ul, 1ul, 0ul>(unsigned long)
+  0.00      0.19     0.00      623     0.00     0.00  std::__detail::_Mod<unsigned long, 624ul, 1ul, 0ul, true, true>::__calc(unsigned long)
+  0.00      0.19     0.00      623     0.00     0.00  unsigned long std::__detail::__mod<unsigned long, 624ul, 1ul, 0ul>(unsigned long)
+  0.00      0.19     0.00        3     0.00     0.00  std::chrono::duration<long, std::ratio<1l, 1000000000l> >::count() const
+  0.00      0.19     0.00        2     0.00     0.00  bool __gnu_cxx::__is_null_pointer<char const>(char const*)
+  0.00      0.19     0.00        2     0.00     0.00  std::chrono::time_point<std::chrono::_V2::steady_clock, std::chrono::duration<long, std::ratio<1l, 1000000000l> > >::time_since_epoch() const
+  0.00      0.19     0.00        2     0.00     0.00  std::char_traits<char>::length(char const*)
+  0.00      0.19     0.00        2     0.00     0.00  void std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_construct<char const*>(char const*, char const*, std::forward_iterator_tag)
+  0.00      0.19     0.00        2     0.00     0.00  std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&)
+  0.00      0.19     0.00        2     0.00     0.00  std::iterator_traits<char const*>::difference_type std::__distance<char const*>(char const*, char const*, std::random_access_iterator_tag)
+  0.00      0.19     0.00        2     0.00     0.00  std::iterator_traits<char const*>::iterator_category std::__iterator_category<char const*>(char const* const&)
+  0.00      0.19     0.00        2     0.00     0.00  std::iterator_traits<char const*>::difference_type std::distance<char const*>(char const*, char const*)
+  0.00      0.19     0.00        1     0.00     0.00  __static_initialization_and_destruction_0(int, int)
+  0.00      0.19     0.00        1     0.00     0.00  __static_initialization_and_destruction_0(int, int)
+  0.00      0.19     0.00        1     0.00     0.00  __static_initialization_and_destruction_0(int, int)
+  0.00      0.19     0.00        1     0.00     0.00  __static_initialization_and_destruction_0(int, int)
+  0.00      0.19     0.00        1     0.00     0.00  __static_initialization_and_destruction_0(int, int)
+  0.00      0.19     0.00        1     0.00     5.35  setup()
+  0.00      0.19     0.00        1     0.00     0.00  std::chrono::duration<double, std::ratio<1l, 1l> >::count() const
+  0.00      0.19     0.00        1     0.00     0.00  std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>::seed(unsigned long)
+  0.00      0.19     0.00        1     0.00     0.00  std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>::mersenne_twister_engine(unsigned long)
+  0.00      0.19     0.00        1     0.00     0.00  std::enable_if<std::chrono::__is_duration<std::chrono::duration<double, std::ratio<1l, 1l> > >::value, std::chrono::duration<double, std::ratio<1l, 1l> > >::type std::chrono::duration_cast<std::chrono::duration<double, std::ratio<1l, 1l> >, long, std::ratio<1l, 1000000000l> >(std::chrono::duration<long, std::ratio<1l, 1000000000l> > const&)
+  0.00      0.19     0.00        1     0.00     0.00  std::chrono::duration<double, std::ratio<1l, 1l> > std::chrono::__duration_cast_impl<std::chrono::duration<double, std::ratio<1l, 1l> >, std::ratio<1l, 1000000000l>, double, true, false>::__cast<long, std::ratio<1l, 1000000000l> >(std::chrono::duration<long, std::ratio<1l, 1000000000l> > const&)
+  0.00      0.19     0.00        1     0.00     0.00  std::chrono::duration<double, std::ratio<1l, 1l> >::duration<double, void>(double const&)
+  0.00      0.19     0.00        1     0.00     0.00  std::chrono::duration<long, std::ratio<1l, 1000000000l> >::duration<long, void>(long const&)
+  0.00      0.19     0.00        1     0.00     0.00  std::common_type<std::chrono::duration<long, std::ratio<1l, 1000000000l> >, std::chrono::duration<long, std::ratio<1l, 1000000000l> > >::type std::chrono::operator-<std::chrono::_V2::steady_clock, std::chrono::duration<long, std::ratio<1l, 1000000000l> >, std::chrono::duration<long, std::ratio<1l, 1000000000l> > >(std::chrono::time_point<std::chrono::_V2::steady_clock, std::chrono::duration<long, std::ratio<1l, 1000000000l> > > const&, std::chrono::time_point<std::chrono::_V2::steady_clock, std::chrono::duration<long, std::ratio<1l, 1000000000l> > > const&)
+  0.00      0.19     0.00        1     0.00     0.00  std::common_type<std::chrono::duration<long, std::ratio<1l, 1000000000l> >, std::chrono::duration<long, std::ratio<1l, 1000000000l> > >::type std::chrono::operator-<long, std::ratio<1l, 1000000000l>, long, std::ratio<1l, 1000000000l> >(std::chrono::duration<long, std::ratio<1l, 1000000000l> > const&, std::chrono::duration<long, std::ratio<1l, 1000000000l> > const&)
+
+ %         the percentage of the total running time of the
+time       program used by this function.
+
+cumulative a running sum of the number of seconds accounted
+ seconds   for by this function and those listed above it.
+
+ self      the number of seconds accounted for by this
+seconds    function alone.  This is the major sort for this
+           listing.
+
+calls      the number of times this function was invoked, if
+           this function is profiled, else blank.
+
+ self      the average number of milliseconds spent in this
+ms/call    function per call, if this function is profiled,
+	   else blank.
+
+ total     the average number of milliseconds spent in this
+ms/call    function and its descendents per call, if this
+	   function is profiled, else blank.
+
+name       the name of the function.  This is the minor sort
+           for this listing. The index shows the location of
+	   the function in the gprof listing. If the index is
+	   in parenthesis it shows where it would appear in
+	   the gprof listing if it were to be printed.
+
+Copyright (C) 2012-2022 Free Software Foundation, Inc.
+
+Copying and distribution of this file, with or without modification,
+are permitted in any medium without royalty provided the copyright
+notice and this notice are preserved.
+
+		     Call graph (explanation follows)
+
+
+granularity: each sample hit covers 4 byte(s) for 5.26% of 0.19 seconds
+
+index % time    self  children    called     name
+                                                 <spontaneous>
+[1]     94.7    0.00    0.18                 main [1]
+                0.10    0.07    1000/1000        go() [2]
+                0.00    0.01       1/1           setup() [18]
+                0.00    0.00       1/1           std::common_type<std::chrono::duration<long, std::ratio<1l, 1000000000l> >, std::chrono::duration<long, std::ratio<1l, 1000000000l> > >::type std::chrono::operator-<std::chrono::_V2::steady_clock, std::chrono::duration<long, std::ratio<1l, 1000000000l> >, std::chrono::duration<long, std::ratio<1l, 1000000000l> > >(std::chrono::time_point<std::chrono::_V2::steady_clock, std::chrono::duration<long, std::ratio<1l, 1000000000l> > > const&, std::chrono::time_point<std::chrono::_V2::steady_clock, std::chrono::duration<long, std::ratio<1l, 1000000000l> > > const&) [81]
+                0.00    0.00       1/1           std::enable_if<std::chrono::__is_duration<std::chrono::duration<double, std::ratio<1l, 1l> > >::value, std::chrono::duration<double, std::ratio<1l, 1l> > >::type std::chrono::duration_cast<std::chrono::duration<double, std::ratio<1l, 1l> >, long, std::ratio<1l, 1000000000l> >(std::chrono::duration<long, std::ratio<1l, 1000000000l> > const&) [77]
+                0.00    0.00       1/1           std::chrono::duration<double, std::ratio<1l, 1l> >::count() const [74]
+-----------------------------------------------
+                0.10    0.07    1000/1000        main [1]
+[2]     91.9    0.10    0.07    1000         go() [2]
+                0.01    0.03  328681/342951      Animal::move() [3]
+                0.02    0.00    1000/1000        grass() [10]
+                0.00    0.01  317335/317335      rand_double() [11]
+                0.00    0.00    7793/7793        Wolf::reproduceWolf() [21]
+                0.00    0.00    6477/6477        Sheep::reproduceSheep() [22]
+                0.00    0.00 3600000/3600000     Patch::growGrass(int) [29]
+                0.00    0.00  166641/166641      std::enable_if<std::__and_<std::__not_<std::__is_tuple_like<Sheep*> >, std::is_move_constructible<Sheep*>, std::is_move_assignable<Sheep*> >::value, void>::type std::swap<Sheep*>(Sheep*&, Sheep*&) [43]
+                0.00    0.00  164040/331798      __gnu_cxx::__enable_if<std::__is_char<char>::__value, bool>::__type std::operator==<char>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) [38]
+                0.00    0.00  163040/163040      Sheep::eatGrass(Patch&) [44]
+                0.00    0.00    2889/2889        Wolf::eatSheep(Sheep&) [53]
+                0.00    0.00    1000/1000        std::enable_if<std::__and_<std::__not_<std::__is_tuple_like<Wolf*> >, std::is_move_constructible<Wolf*>, std::is_move_assignable<Wolf*> >::value, void>::type std::swap<Wolf*>(Wolf*&, Wolf*&) [55]
+                0.00    0.00    1000/1001        displayLabels() [54]
+-----------------------------------------------
+                0.00    0.00    6477/342951      Sheep::reproduceSheep() [22]
+                0.00    0.00    7793/342951      Wolf::reproduceWolf() [21]
+                0.01    0.03  328681/342951      go() [2]
+[3]     21.8    0.01    0.03  342951         Animal::move() [3]
+                0.00    0.03  685902/802749      rand_int(int, int) [4]
+-----------------------------------------------
+                0.00    0.00    5397/802749      setup() [18]
+                0.00    0.00   51150/802749      Wolf::Wolf() [20]
+                0.00    0.00   60300/802749      Sheep::Sheep() [19]
+                0.00    0.03  685902/802749      Animal::move() [3]
+[4]     19.3    0.00    0.04  802749         rand_int(int, int) [4]
+                0.00    0.03  802749/802749      int std::uniform_int_distribution<int>::operator()<std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul> >(std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>&) [8]
+                0.01    0.00  802749/802749      std::uniform_int_distribution<int>::uniform_int_distribution(int, int) [16]
+-----------------------------------------------
+                0.00    0.01  634670/1437419     double std::generate_canonical<double, 53ul, std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul> >(std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>&) [15]
+                0.00    0.02  802749/1437419     unsigned int std::uniform_int_distribution<int>::_S_nd<unsigned long, std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>, unsigned int>(std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>&, unsigned int) [7]
+[5]     15.8    0.00    0.03 1437419         std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>::operator()() [5]
+                0.03    0.00    2304/2304        std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>::_M_gen_rand() [6]
+-----------------------------------------------
+                0.03    0.00    2304/2304        std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>::operator()() [5]
+[6]     15.8    0.03    0.00    2304         std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>::_M_gen_rand() [6]
+-----------------------------------------------
+                0.01    0.02  802749/802749      int std::uniform_int_distribution<int>::operator()<std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul> >(std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>&, std::uniform_int_distribution<int>::param_type const&) [9]
+[7]     14.1    0.01    0.02  802749         unsigned int std::uniform_int_distribution<int>::_S_nd<unsigned long, std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>, unsigned int>(std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>&, unsigned int) [7]
+                0.00    0.02  802749/1437419     std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>::operator()() [5]
+-----------------------------------------------
+                0.00    0.03  802749/802749      rand_int(int, int) [4]
+[8]     14.1    0.00    0.03  802749         int std::uniform_int_distribution<int>::operator()<std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul> >(std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>&) [8]
+                0.00    0.03  802749/802749      int std::uniform_int_distribution<int>::operator()<std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul> >(std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>&, std::uniform_int_distribution<int>::param_type const&) [9]
+-----------------------------------------------
+                0.00    0.03  802749/802749      int std::uniform_int_distribution<int>::operator()<std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul> >(std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>&) [8]
+[9]     14.1    0.00    0.03  802749         int std::uniform_int_distribution<int>::operator()<std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul> >(std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>&, std::uniform_int_distribution<int>::param_type const&) [9]
+                0.01    0.02  802749/802749      unsigned int std::uniform_int_distribution<int>::_S_nd<unsigned long, std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>, unsigned int>(std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>&, unsigned int) [7]
+                0.00    0.00 1605498/1605498     std::uniform_int_distribution<int>::param_type::a() const [31]
+                0.00    0.00  802749/802749      std::uniform_int_distribution<int>::param_type::b() const [32]
+-----------------------------------------------
+                0.02    0.00    1000/1000        go() [2]
+[10]    10.5    0.02    0.00    1000         grass() [10]
+                0.00    0.00 3600000/3600000     Patch::getColor() const [30]
+                0.00    0.00    1000/331798      __gnu_cxx::__enable_if<std::__is_char<char>::__value, bool>::__type std::operator==<char>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) [38]
+-----------------------------------------------
+                0.00    0.01  317335/317335      go() [2]
+[11]     7.0    0.00    0.01  317335         rand_double() [11]
+                0.00    0.01  317335/317335      double std::uniform_real_distribution<double>::operator()<std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul> >(std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>&) [12]
+                0.00    0.00  317335/317335      std::uniform_real_distribution<double>::uniform_real_distribution(double, double) [41]
+-----------------------------------------------
+                0.00    0.01  317335/317335      rand_double() [11]
+[12]     7.0    0.00    0.01  317335         double std::uniform_real_distribution<double>::operator()<std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul> >(std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>&) [12]
+                0.00    0.01  317335/317335      double std::uniform_real_distribution<double>::operator()<std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul> >(std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>&, std::uniform_real_distribution<double>::param_type const&) [13]
+-----------------------------------------------
+                0.00    0.01  317335/317335      double std::uniform_real_distribution<double>::operator()<std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul> >(std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>&) [12]
+[13]     7.0    0.00    0.01  317335         double std::uniform_real_distribution<double>::operator()<std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul> >(std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>&, std::uniform_real_distribution<double>::param_type const&) [13]
+                0.00    0.01  317335/317335      std::__detail::_Adaptor<std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>, double>::operator()() [14]
+                0.00    0.00  634670/634670      std::uniform_real_distribution<double>::param_type::a() const [34]
+                0.00    0.00  317335/317335      std::__detail::_Adaptor<std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>, double>::_Adaptor(std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>&) [42]
+                0.00    0.00  317335/317335      std::uniform_real_distribution<double>::param_type::b() const [39]
+-----------------------------------------------
+                0.00    0.01  317335/317335      double std::uniform_real_distribution<double>::operator()<std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul> >(std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>&, std::uniform_real_distribution<double>::param_type const&) [13]
+[14]     7.0    0.00    0.01  317335         std::__detail::_Adaptor<std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>, double>::operator()() [14]
+                0.00    0.01  317335/317335      double std::generate_canonical<double, 53ul, std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul> >(std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>&) [15]
+-----------------------------------------------
+                0.00    0.01  317335/317335      std::__detail::_Adaptor<std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>, double>::operator()() [14]
+[15]     7.0    0.00    0.01  317335         double std::generate_canonical<double, 53ul, std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul> >(std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>&) [15]
+                0.00    0.01  634670/1437419     std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>::operator()() [5]
+                0.00    0.00  634670/634670      std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>::min() [35]
+-----------------------------------------------
+                0.01    0.00  802749/802749      rand_int(int, int) [4]
+[16]     5.3    0.01    0.00  802749         std::uniform_int_distribution<int>::uniform_int_distribution(int, int) [16]
+                0.00    0.00  802749/802749      std::uniform_int_distribution<int>::param_type::param_type(int, int) [33]
+-----------------------------------------------
+                                                 <spontaneous>
+[17]     5.3    0.01    0.00                 _init [17]
+-----------------------------------------------
+                0.00    0.01       1/1           main [1]
+[18]     2.8    0.00    0.01       1         setup() [18]
+                0.00    0.00   20100/20100       Sheep::Sheep() [19]
+                0.00    0.00   17050/17050       Wolf::Wolf() [20]
+                0.00    0.00    5397/802749      rand_int(int, int) [4]
+                0.00    0.00    3600/3600        Patch::Patch() [51]
+                0.00    0.00    3600/331798      __gnu_cxx::__enable_if<std::__is_char<char>::__value, bool>::__type std::operator==<char>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) [38]
+                0.00    0.00    3600/41405       Patch::setColor(Patch::Color) [45]
+                0.00    0.00    3600/3600        Patch::setCountdown(int) [50]
+                0.00    0.00       1/1001        displayLabels() [54]
+-----------------------------------------------
+                0.00    0.00   20100/20100       setup() [18]
+[19]     1.5    0.00    0.00   20100         Sheep::Sheep() [19]
+                0.00    0.00   60300/802749      rand_int(int, int) [4]
+                0.00    0.00   20100/37150       Animal::Animal() [46]
+-----------------------------------------------
+                0.00    0.00   17050/17050       setup() [18]
+[20]     1.2    0.00    0.00   17050         Wolf::Wolf() [20]
+                0.00    0.00   51150/802749      rand_int(int, int) [4]
+                0.00    0.00   17050/37150       Animal::Animal() [46]
+-----------------------------------------------
+                0.00    0.00    7793/7793        go() [2]
+[21]     0.5    0.00    0.00    7793         Wolf::reproduceWolf() [21]
+                0.00    0.00    7793/342951      Animal::move() [3]
+                0.00    0.00    7793/7793        Wolf::Wolf(int, int, int) [48]
+-----------------------------------------------
+                0.00    0.00    6477/6477        go() [2]
+[22]     0.4    0.00    0.00    6477         Sheep::reproduceSheep() [22]
+                0.00    0.00    6477/342951      Animal::move() [3]
+                0.00    0.00    6477/6477        Sheep::Sheep(int, int, int) [49]
+-----------------------------------------------
+                0.00    0.00 3600000/3600000     go() [2]
+[29]     0.0    0.00    0.00 3600000         Patch::growGrass(int) [29]
+-----------------------------------------------
+                0.00    0.00 3600000/3600000     grass() [10]
+[30]     0.0    0.00    0.00 3600000         Patch::getColor() const [30]
+-----------------------------------------------
+                0.00    0.00 1605498/1605498     int std::uniform_int_distribution<int>::operator()<std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul> >(std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>&, std::uniform_int_distribution<int>::param_type const&) [9]
+[31]     0.0    0.00    0.00 1605498         std::uniform_int_distribution<int>::param_type::a() const [31]
+-----------------------------------------------
+                0.00    0.00  802749/802749      int std::uniform_int_distribution<int>::operator()<std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul> >(std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>&, std::uniform_int_distribution<int>::param_type const&) [9]
+[32]     0.0    0.00    0.00  802749         std::uniform_int_distribution<int>::param_type::b() const [32]
+-----------------------------------------------
+                0.00    0.00  802749/802749      std::uniform_int_distribution<int>::uniform_int_distribution(int, int) [16]
+[33]     0.0    0.00    0.00  802749         std::uniform_int_distribution<int>::param_type::param_type(int, int) [33]
+-----------------------------------------------
+                0.00    0.00  634670/634670      double std::uniform_real_distribution<double>::operator()<std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul> >(std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>&, std::uniform_real_distribution<double>::param_type const&) [13]
+[34]     0.0    0.00    0.00  634670         std::uniform_real_distribution<double>::param_type::a() const [34]
+-----------------------------------------------
+                0.00    0.00  634670/634670      double std::generate_canonical<double, 53ul, std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul> >(std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>&) [15]
+[35]     0.0    0.00    0.00  634670         std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>::min() [35]
+-----------------------------------------------
+                0.00    0.00  499923/499923      std::enable_if<std::__and_<std::__not_<std::__is_tuple_like<Sheep*> >, std::is_move_constructible<Sheep*>, std::is_move_assignable<Sheep*> >::value, void>::type std::swap<Sheep*>(Sheep*&, Sheep*&) [43]
+[36]     0.0    0.00    0.00  499923         std::remove_reference<Sheep*&>::type&& std::move<Sheep*&>(Sheep*&) [36]
+-----------------------------------------------
+                0.00    0.00  331798/331798      __gnu_cxx::__enable_if<std::__is_char<char>::__value, bool>::__type std::operator==<char>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) [38]
+[37]     0.0    0.00    0.00  331798         std::char_traits<char>::compare(char const*, char const*, unsigned long) [37]
+-----------------------------------------------
+                0.00    0.00    1000/331798      grass() [10]
+                0.00    0.00    3600/331798      setup() [18]
+                0.00    0.00  163158/331798      displayLabels() [54]
+                0.00    0.00  164040/331798      go() [2]
+[38]     0.0    0.00    0.00  331798         __gnu_cxx::__enable_if<std::__is_char<char>::__value, bool>::__type std::operator==<char>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) [38]
+                0.00    0.00  331798/331798      std::char_traits<char>::compare(char const*, char const*, unsigned long) [37]
+-----------------------------------------------
+                0.00    0.00  317335/317335      double std::uniform_real_distribution<double>::operator()<std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul> >(std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>&, std::uniform_real_distribution<double>::param_type const&) [13]
+[39]     0.0    0.00    0.00  317335         std::uniform_real_distribution<double>::param_type::b() const [39]
+-----------------------------------------------
+                0.00    0.00  317335/317335      std::uniform_real_distribution<double>::uniform_real_distribution(double, double) [41]
+[40]     0.0    0.00    0.00  317335         std::uniform_real_distribution<double>::param_type::param_type(double, double) [40]
+-----------------------------------------------
+                0.00    0.00  317335/317335      rand_double() [11]
+[41]     0.0    0.00    0.00  317335         std::uniform_real_distribution<double>::uniform_real_distribution(double, double) [41]
+                0.00    0.00  317335/317335      std::uniform_real_distribution<double>::param_type::param_type(double, double) [40]
+-----------------------------------------------
+                0.00    0.00  317335/317335      double std::uniform_real_distribution<double>::operator()<std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul> >(std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>&, std::uniform_real_distribution<double>::param_type const&) [13]
+[42]     0.0    0.00    0.00  317335         std::__detail::_Adaptor<std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>, double>::_Adaptor(std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>&) [42]
+-----------------------------------------------
+                0.00    0.00  166641/166641      go() [2]
+[43]     0.0    0.00    0.00  166641         std::enable_if<std::__and_<std::__not_<std::__is_tuple_like<Sheep*> >, std::is_move_constructible<Sheep*>, std::is_move_assignable<Sheep*> >::value, void>::type std::swap<Sheep*>(Sheep*&, Sheep*&) [43]
+                0.00    0.00  499923/499923      std::remove_reference<Sheep*&>::type&& std::move<Sheep*&>(Sheep*&) [36]
+-----------------------------------------------
+                0.00    0.00  163040/163040      go() [2]
+[44]     0.0    0.00    0.00  163040         Sheep::eatGrass(Patch&) [44]
+                0.00    0.00   37805/41405       Patch::setColor(Patch::Color) [45]
+-----------------------------------------------
+                0.00    0.00    3600/41405       setup() [18]
+                0.00    0.00   37805/41405       Sheep::eatGrass(Patch&) [44]
+[45]     0.0    0.00    0.00   41405         Patch::setColor(Patch::Color) [45]
+-----------------------------------------------
+                0.00    0.00   17050/37150       Wolf::Wolf() [20]
+                0.00    0.00   20100/37150       Sheep::Sheep() [19]
+[46]     0.0    0.00    0.00   37150         Animal::Animal() [46]
+-----------------------------------------------
+                0.00    0.00    6477/14270       Sheep::Sheep(int, int, int) [49]
+                0.00    0.00    7793/14270       Wolf::Wolf(int, int, int) [48]
+[47]     0.0    0.00    0.00   14270         Animal::Animal(int, int, int) [47]
+-----------------------------------------------
+                0.00    0.00    7793/7793        Wolf::reproduceWolf() [21]
+[48]     0.0    0.00    0.00    7793         Wolf::Wolf(int, int, int) [48]
+                0.00    0.00    7793/14270       Animal::Animal(int, int, int) [47]
+-----------------------------------------------
+                0.00    0.00    6477/6477        Sheep::reproduceSheep() [22]
+[49]     0.0    0.00    0.00    6477         Sheep::Sheep(int, int, int) [49]
+                0.00    0.00    6477/14270       Animal::Animal(int, int, int) [47]
+-----------------------------------------------
+                0.00    0.00    3600/3600        setup() [18]
+[50]     0.0    0.00    0.00    3600         Patch::setCountdown(int) [50]
+-----------------------------------------------
+                0.00    0.00    3600/3600        setup() [18]
+[51]     0.0    0.00    0.00    3600         Patch::Patch() [51]
+-----------------------------------------------
+                0.00    0.00    3000/3000        std::enable_if<std::__and_<std::__not_<std::__is_tuple_like<Wolf*> >, std::is_move_constructible<Wolf*>, std::is_move_assignable<Wolf*> >::value, void>::type std::swap<Wolf*>(Wolf*&, Wolf*&) [55]
+[52]     0.0    0.00    0.00    3000         std::remove_reference<Wolf*&>::type&& std::move<Wolf*&>(Wolf*&) [52]
+-----------------------------------------------
+                0.00    0.00    2889/2889        go() [2]
+[53]     0.0    0.00    0.00    2889         Wolf::eatSheep(Sheep&) [53]
+-----------------------------------------------
+                0.00    0.00       1/1001        setup() [18]
+                0.00    0.00    1000/1001        go() [2]
+[54]     0.0    0.00    0.00    1001         displayLabels() [54]
+                0.00    0.00  163158/331798      __gnu_cxx::__enable_if<std::__is_char<char>::__value, bool>::__type std::operator==<char>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) [38]
+-----------------------------------------------
+                0.00    0.00    1000/1000        go() [2]
+[55]     0.0    0.00    0.00    1000         std::enable_if<std::__and_<std::__not_<std::__is_tuple_like<Wolf*> >, std::is_move_constructible<Wolf*>, std::is_move_assignable<Wolf*> >::value, void>::type std::swap<Wolf*>(Wolf*&, Wolf*&) [55]
+                0.00    0.00    3000/3000        std::remove_reference<Wolf*&>::type&& std::move<Wolf*&>(Wolf*&) [52]
+-----------------------------------------------
+                0.00    0.00     624/624         unsigned long std::__detail::__mod<unsigned long, 4294967296ul, 1ul, 0ul>(unsigned long) [57]
+[56]     0.0    0.00    0.00     624         std::__detail::_Mod<unsigned long, 4294967296ul, 1ul, 0ul, true, true>::__calc(unsigned long) [56]
+-----------------------------------------------
+                0.00    0.00     624/624         std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>::seed(unsigned long) [75]
+[57]     0.0    0.00    0.00     624         unsigned long std::__detail::__mod<unsigned long, 4294967296ul, 1ul, 0ul>(unsigned long) [57]
+                0.00    0.00     624/624         std::__detail::_Mod<unsigned long, 4294967296ul, 1ul, 0ul, true, true>::__calc(unsigned long) [56]
+-----------------------------------------------
+                0.00    0.00     623/623         unsigned long std::__detail::__mod<unsigned long, 624ul, 1ul, 0ul>(unsigned long) [59]
+[58]     0.0    0.00    0.00     623         std::__detail::_Mod<unsigned long, 624ul, 1ul, 0ul, true, true>::__calc(unsigned long) [58]
+-----------------------------------------------
+                0.00    0.00     623/623         std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>::seed(unsigned long) [75]
+[59]     0.0    0.00    0.00     623         unsigned long std::__detail::__mod<unsigned long, 624ul, 1ul, 0ul>(unsigned long) [59]
+                0.00    0.00     623/623         std::__detail::_Mod<unsigned long, 624ul, 1ul, 0ul, true, true>::__calc(unsigned long) [58]
+-----------------------------------------------
+                0.00    0.00       1/3           std::chrono::duration<double, std::ratio<1l, 1l> > std::chrono::__duration_cast_impl<std::chrono::duration<double, std::ratio<1l, 1l> >, std::ratio<1l, 1000000000l>, double, true, false>::__cast<long, std::ratio<1l, 1000000000l> >(std::chrono::duration<long, std::ratio<1l, 1000000000l> > const&) [78]
+                0.00    0.00       2/3           std::common_type<std::chrono::duration<long, std::ratio<1l, 1000000000l> >, std::chrono::duration<long, std::ratio<1l, 1000000000l> > >::type std::chrono::operator-<long, std::ratio<1l, 1000000000l>, long, std::ratio<1l, 1000000000l> >(std::chrono::duration<long, std::ratio<1l, 1000000000l> > const&, std::chrono::duration<long, std::ratio<1l, 1000000000l> > const&) [82]
+[60]     0.0    0.00    0.00       3         std::chrono::duration<long, std::ratio<1l, 1000000000l> >::count() const [60]
+-----------------------------------------------
+                0.00    0.00       2/2           void std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_construct<char const*>(char const*, char const*, std::forward_iterator_tag) [64]
+[61]     0.0    0.00    0.00       2         bool __gnu_cxx::__is_null_pointer<char const>(char const*) [61]
+-----------------------------------------------
+                0.00    0.00       2/2           std::common_type<std::chrono::duration<long, std::ratio<1l, 1000000000l> >, std::chrono::duration<long, std::ratio<1l, 1000000000l> > >::type std::chrono::operator-<std::chrono::_V2::steady_clock, std::chrono::duration<long, std::ratio<1l, 1000000000l> >, std::chrono::duration<long, std::ratio<1l, 1000000000l> > >(std::chrono::time_point<std::chrono::_V2::steady_clock, std::chrono::duration<long, std::ratio<1l, 1000000000l> > > const&, std::chrono::time_point<std::chrono::_V2::steady_clock, std::chrono::duration<long, std::ratio<1l, 1000000000l> > > const&) [81]
+[62]     0.0    0.00    0.00       2         std::chrono::time_point<std::chrono::_V2::steady_clock, std::chrono::duration<long, std::ratio<1l, 1000000000l> > >::time_since_epoch() const [62]
+-----------------------------------------------
+                0.00    0.00       2/2           std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&) [65]
+[63]     0.0    0.00    0.00       2         std::char_traits<char>::length(char const*) [63]
+-----------------------------------------------
+                0.00    0.00       2/2           std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&) [65]
+[64]     0.0    0.00    0.00       2         void std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_construct<char const*>(char const*, char const*, std::forward_iterator_tag) [64]
+                0.00    0.00       2/2           bool __gnu_cxx::__is_null_pointer<char const>(char const*) [61]
+                0.00    0.00       2/2           std::iterator_traits<char const*>::difference_type std::distance<char const*>(char const*, char const*) [68]
+-----------------------------------------------
+                0.00    0.00       2/2           __static_initialization_and_destruction_0(int, int) [70]
+[65]     0.0    0.00    0.00       2         std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&) [65]
+                0.00    0.00       2/2           std::char_traits<char>::length(char const*) [63]
+                0.00    0.00       2/2           void std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_construct<char const*>(char const*, char const*, std::forward_iterator_tag) [64]
+-----------------------------------------------
+                0.00    0.00       2/2           std::iterator_traits<char const*>::difference_type std::distance<char const*>(char const*, char const*) [68]
+[66]     0.0    0.00    0.00       2         std::iterator_traits<char const*>::difference_type std::__distance<char const*>(char const*, char const*, std::random_access_iterator_tag) [66]
+-----------------------------------------------
+                0.00    0.00       2/2           std::iterator_traits<char const*>::difference_type std::distance<char const*>(char const*, char const*) [68]
+[67]     0.0    0.00    0.00       2         std::iterator_traits<char const*>::iterator_category std::__iterator_category<char const*>(char const* const&) [67]
+-----------------------------------------------
+                0.00    0.00       2/2           void std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_construct<char const*>(char const*, char const*, std::forward_iterator_tag) [64]
+[68]     0.0    0.00    0.00       2         std::iterator_traits<char const*>::difference_type std::distance<char const*>(char const*, char const*) [68]
+                0.00    0.00       2/2           std::iterator_traits<char const*>::iterator_category std::__iterator_category<char const*>(char const* const&) [67]
+                0.00    0.00       2/2           std::iterator_traits<char const*>::difference_type std::__distance<char const*>(char const*, char const*, std::random_access_iterator_tag) [66]
+-----------------------------------------------
+                0.00    0.00       1/1           _GLOBAL__sub_I__ZN6AnimalC2Ev [86]
+[69]     0.0    0.00    0.00       1         __static_initialization_and_destruction_0(int, int) [69]
+-----------------------------------------------
+                0.00    0.00       1/1           _GLOBAL__sub_I__Z18SHEEP_WOLVES_GRASSB5cxx11 [83]
+[70]     0.0    0.00    0.00       1         __static_initialization_and_destruction_0(int, int) [70]
+                0.00    0.00       2/2           std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&) [65]
+-----------------------------------------------
+                0.00    0.00       1/1           _GLOBAL__sub_I_patches [87]
+[71]     0.0    0.00    0.00       1         __static_initialization_and_destruction_0(int, int) [71]
+-----------------------------------------------
+                0.00    0.00       1/1           _GLOBAL__sub_I__ZN5SheepC2Ev [85]
+[72]     0.0    0.00    0.00       1         __static_initialization_and_destruction_0(int, int) [72]
+-----------------------------------------------
+                0.00    0.00       1/1           _GLOBAL__sub_I__Z6randomi [84]
+[73]     0.0    0.00    0.00       1         __static_initialization_and_destruction_0(int, int) [73]
+                0.00    0.00       1/1           std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>::mersenne_twister_engine(unsigned long) [76]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[74]     0.0    0.00    0.00       1         std::chrono::duration<double, std::ratio<1l, 1l> >::count() const [74]
+-----------------------------------------------
+                0.00    0.00       1/1           std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>::mersenne_twister_engine(unsigned long) [76]
+[75]     0.0    0.00    0.00       1         std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>::seed(unsigned long) [75]
+                0.00    0.00     624/624         unsigned long std::__detail::__mod<unsigned long, 4294967296ul, 1ul, 0ul>(unsigned long) [57]
+                0.00    0.00     623/623         unsigned long std::__detail::__mod<unsigned long, 624ul, 1ul, 0ul>(unsigned long) [59]
+-----------------------------------------------
+                0.00    0.00       1/1           __static_initialization_and_destruction_0(int, int) [73]
+[76]     0.0    0.00    0.00       1         std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>::mersenne_twister_engine(unsigned long) [76]
+                0.00    0.00       1/1           std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>::seed(unsigned long) [75]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[77]     0.0    0.00    0.00       1         std::enable_if<std::chrono::__is_duration<std::chrono::duration<double, std::ratio<1l, 1l> > >::value, std::chrono::duration<double, std::ratio<1l, 1l> > >::type std::chrono::duration_cast<std::chrono::duration<double, std::ratio<1l, 1l> >, long, std::ratio<1l, 1000000000l> >(std::chrono::duration<long, std::ratio<1l, 1000000000l> > const&) [77]
+                0.00    0.00       1/1           std::chrono::duration<double, std::ratio<1l, 1l> > std::chrono::__duration_cast_impl<std::chrono::duration<double, std::ratio<1l, 1l> >, std::ratio<1l, 1000000000l>, double, true, false>::__cast<long, std::ratio<1l, 1000000000l> >(std::chrono::duration<long, std::ratio<1l, 1000000000l> > const&) [78]
+-----------------------------------------------
+                0.00    0.00       1/1           std::enable_if<std::chrono::__is_duration<std::chrono::duration<double, std::ratio<1l, 1l> > >::value, std::chrono::duration<double, std::ratio<1l, 1l> > >::type std::chrono::duration_cast<std::chrono::duration<double, std::ratio<1l, 1l> >, long, std::ratio<1l, 1000000000l> >(std::chrono::duration<long, std::ratio<1l, 1000000000l> > const&) [77]
+[78]     0.0    0.00    0.00       1         std::chrono::duration<double, std::ratio<1l, 1l> > std::chrono::__duration_cast_impl<std::chrono::duration<double, std::ratio<1l, 1l> >, std::ratio<1l, 1000000000l>, double, true, false>::__cast<long, std::ratio<1l, 1000000000l> >(std::chrono::duration<long, std::ratio<1l, 1000000000l> > const&) [78]
+                0.00    0.00       1/3           std::chrono::duration<long, std::ratio<1l, 1000000000l> >::count() const [60]
+                0.00    0.00       1/1           std::chrono::duration<double, std::ratio<1l, 1l> >::duration<double, void>(double const&) [79]
+-----------------------------------------------
+                0.00    0.00       1/1           std::chrono::duration<double, std::ratio<1l, 1l> > std::chrono::__duration_cast_impl<std::chrono::duration<double, std::ratio<1l, 1l> >, std::ratio<1l, 1000000000l>, double, true, false>::__cast<long, std::ratio<1l, 1000000000l> >(std::chrono::duration<long, std::ratio<1l, 1000000000l> > const&) [78]
+[79]     0.0    0.00    0.00       1         std::chrono::duration<double, std::ratio<1l, 1l> >::duration<double, void>(double const&) [79]
+-----------------------------------------------
+                0.00    0.00       1/1           std::common_type<std::chrono::duration<long, std::ratio<1l, 1000000000l> >, std::chrono::duration<long, std::ratio<1l, 1000000000l> > >::type std::chrono::operator-<long, std::ratio<1l, 1000000000l>, long, std::ratio<1l, 1000000000l> >(std::chrono::duration<long, std::ratio<1l, 1000000000l> > const&, std::chrono::duration<long, std::ratio<1l, 1000000000l> > const&) [82]
+[80]     0.0    0.00    0.00       1         std::chrono::duration<long, std::ratio<1l, 1000000000l> >::duration<long, void>(long const&) [80]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[81]     0.0    0.00    0.00       1         std::common_type<std::chrono::duration<long, std::ratio<1l, 1000000000l> >, std::chrono::duration<long, std::ratio<1l, 1000000000l> > >::type std::chrono::operator-<std::chrono::_V2::steady_clock, std::chrono::duration<long, std::ratio<1l, 1000000000l> >, std::chrono::duration<long, std::ratio<1l, 1000000000l> > >(std::chrono::time_point<std::chrono::_V2::steady_clock, std::chrono::duration<long, std::ratio<1l, 1000000000l> > > const&, std::chrono::time_point<std::chrono::_V2::steady_clock, std::chrono::duration<long, std::ratio<1l, 1000000000l> > > const&) [81]
+                0.00    0.00       2/2           std::chrono::time_point<std::chrono::_V2::steady_clock, std::chrono::duration<long, std::ratio<1l, 1000000000l> > >::time_since_epoch() const [62]
+                0.00    0.00       1/1           std::common_type<std::chrono::duration<long, std::ratio<1l, 1000000000l> >, std::chrono::duration<long, std::ratio<1l, 1000000000l> > >::type std::chrono::operator-<long, std::ratio<1l, 1000000000l>, long, std::ratio<1l, 1000000000l> >(std::chrono::duration<long, std::ratio<1l, 1000000000l> > const&, std::chrono::duration<long, std::ratio<1l, 1000000000l> > const&) [82]
+-----------------------------------------------
+                0.00    0.00       1/1           std::common_type<std::chrono::duration<long, std::ratio<1l, 1000000000l> >, std::chrono::duration<long, std::ratio<1l, 1000000000l> > >::type std::chrono::operator-<std::chrono::_V2::steady_clock, std::chrono::duration<long, std::ratio<1l, 1000000000l> >, std::chrono::duration<long, std::ratio<1l, 1000000000l> > >(std::chrono::time_point<std::chrono::_V2::steady_clock, std::chrono::duration<long, std::ratio<1l, 1000000000l> > > const&, std::chrono::time_point<std::chrono::_V2::steady_clock, std::chrono::duration<long, std::ratio<1l, 1000000000l> > > const&) [81]
+[82]     0.0    0.00    0.00       1         std::common_type<std::chrono::duration<long, std::ratio<1l, 1000000000l> >, std::chrono::duration<long, std::ratio<1l, 1000000000l> > >::type std::chrono::operator-<long, std::ratio<1l, 1000000000l>, long, std::ratio<1l, 1000000000l> >(std::chrono::duration<long, std::ratio<1l, 1000000000l> > const&, std::chrono::duration<long, std::ratio<1l, 1000000000l> > const&) [82]
+                0.00    0.00       2/3           std::chrono::duration<long, std::ratio<1l, 1000000000l> >::count() const [60]
+                0.00    0.00       1/1           std::chrono::duration<long, std::ratio<1l, 1000000000l> >::duration<long, void>(long const&) [80]
+-----------------------------------------------
+
+ This table describes the call tree of the program, and was sorted by
+ the total amount of time spent in each function and its children.
+
+ Each entry in this table consists of several lines.  The line with the
+ index number at the left hand margin lists the current function.
+ The lines above it list the functions that called this function,
+ and the lines below it list the functions this one called.
+ This line lists:
+     index	A unique number given to each element of the table.
+		Index numbers are sorted numerically.
+		The index number is printed next to every function name so
+		it is easier to look up where the function is in the table.
+
+     % time	This is the percentage of the `total' time that was spent
+		in this function and its children.  Note that due to
+		different viewpoints, functions excluded by options, etc,
+		these numbers will NOT add up to 100%.
+
+     self	This is the total amount of time spent in this function.
+
+     children	This is the total amount of time propagated into this
+		function by its children.
+
+     called	This is the number of times the function was called.
+		If the function called itself recursively, the number
+		only includes non-recursive calls, and is followed by
+		a `+' and the number of recursive calls.
+
+     name	The name of the current function.  The index number is
+		printed after it.  If the function is a member of a
+		cycle, the cycle number is printed between the
+		function's name and the index number.
+
+
+ For the function's parents, the fields have the following meanings:
+
+     self	This is the amount of time that was propagated directly
+		from the function into this parent.
+
+     children	This is the amount of time that was propagated from
+		the function's children into this parent.
+
+     called	This is the number of times this parent called the
+		function `/' the total number of times the function
+		was called.  Recursive calls to the function are not
+		included in the number after the `/'.
+
+     name	This is the name of the parent.  The parent's index
+		number is printed after it.  If the parent is a
+		member of a cycle, the cycle number is printed between
+		the name and the index number.
+
+ If the parents of the function cannot be determined, the word
+ `<spontaneous>' is printed in the `name' field, and all the other
+ fields are blank.
+
+ For the function's children, the fields have the following meanings:
+
+     self	This is the amount of time that was propagated directly
+		from the child into the function.
+
+     children	This is the amount of time that was propagated from the
+		child's children to the function.
+
+     called	This is the number of times the function called
+		this child `/' the total number of times the child
+		was called.  Recursive calls by the child are not
+		listed in the number after the `/'.
+
+     name	This is the name of the child.  The child's index
+		number is printed after it.  If the child is a
+		member of a cycle, the cycle number is printed
+		between the name and the index number.
+
+ If there are any cycles (circles) in the call graph, there is an
+ entry for the cycle-as-a-whole.  This entry shows who called the
+ cycle (as parents) and the members of the cycle (as children.)
+ The `+' recursive calls entry shows the number of function calls that
+ were internal to the cycle, and the calls entry for each member shows,
+ for that member, how many times it was called from other members of
+ the cycle.
+
+Copyright (C) 2012-2022 Free Software Foundation, Inc.
+
+Copying and distribution of this file, with or without modification,
+are permitted in any medium without royalty provided the copyright
+notice and this notice are preserved.
+
+Index by function name
+
+  [11] rand_double()          [46] Animal::Animal()       [13] double std::uniform_real_distribution<double>::operator()<std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul> >(std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>&, std::uniform_real_distribution<double>::param_type const&)
+  [54] displayLabels()        [61] bool __gnu_cxx::__is_null_pointer<char const>(char const*) [77] std::enable_if<std::chrono::__is_duration<std::chrono::duration<double, std::ratio<1l, 1l> > >::value, std::chrono::duration<double, std::ratio<1l, 1l> > >::type std::chrono::duration_cast<std::chrono::duration<double, std::ratio<1l, 1l> >, long, std::ratio<1l, 1000000000l> >(std::chrono::duration<long, std::ratio<1l, 1000000000l> > const&)
+   [2] go()                   [30] Patch::getColor() const [78] std::chrono::duration<double, std::ratio<1l, 1l> > std::chrono::__duration_cast_impl<std::chrono::duration<double, std::ratio<1l, 1l> >, std::ratio<1l, 1000000000l>, double, true, false>::__cast<long, std::ratio<1l, 1000000000l> >(std::chrono::duration<long, std::ratio<1l, 1000000000l> > const&)
+  [69] __static_initialization_and_destruction_0(int, int) [31] std::uniform_int_distribution<int>::param_type::a() const [79] std::chrono::duration<double, std::ratio<1l, 1l> >::duration<double, void>(double const&)
+  [70] __static_initialization_and_destruction_0(int, int) [32] std::uniform_int_distribution<int>::param_type::b() const [80] std::chrono::duration<long, std::ratio<1l, 1000000000l> >::duration<long, void>(long const&)
+  [71] __static_initialization_and_destruction_0(int, int) [34] std::uniform_real_distribution<double>::param_type::a() const [81] std::common_type<std::chrono::duration<long, std::ratio<1l, 1000000000l> >, std::chrono::duration<long, std::ratio<1l, 1000000000l> > >::type std::chrono::operator-<std::chrono::_V2::steady_clock, std::chrono::duration<long, std::ratio<1l, 1000000000l> >, std::chrono::duration<long, std::ratio<1l, 1000000000l> > >(std::chrono::time_point<std::chrono::_V2::steady_clock, std::chrono::duration<long, std::ratio<1l, 1000000000l> > > const&, std::chrono::time_point<std::chrono::_V2::steady_clock, std::chrono::duration<long, std::ratio<1l, 1000000000l> > > const&)
+  [72] __static_initialization_and_destruction_0(int, int) [39] std::uniform_real_distribution<double>::param_type::b() const [82] std::common_type<std::chrono::duration<long, std::ratio<1l, 1000000000l> >, std::chrono::duration<long, std::ratio<1l, 1000000000l> > >::type std::chrono::operator-<long, std::ratio<1l, 1000000000l>, long, std::ratio<1l, 1000000000l> >(std::chrono::duration<long, std::ratio<1l, 1000000000l> > const&, std::chrono::duration<long, std::ratio<1l, 1000000000l> > const&)
+  [73] __static_initialization_and_destruction_0(int, int) [62] std::chrono::time_point<std::chrono::_V2::steady_clock, std::chrono::duration<long, std::ratio<1l, 1000000000l> > >::time_since_epoch() const [64] void std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_construct<char const*>(char const*, char const*, std::forward_iterator_tag)
+  [10] grass()                [74] std::chrono::duration<double, std::ratio<1l, 1l> >::count() const [65] std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&)
+  [18] setup()                [60] std::chrono::duration<long, std::ratio<1l, 1000000000l> >::count() const [56] std::__detail::_Mod<unsigned long, 4294967296ul, 1ul, 0ul, true, true>::__calc(unsigned long)
+   [4] rand_int(int, int)     [63] std::char_traits<char>::length(char const*) [58] std::__detail::_Mod<unsigned long, 624ul, 1ul, 0ul, true, true>::__calc(unsigned long)
+  [21] Wolf::reproduceWolf()  [37] std::char_traits<char>::compare(char const*, char const*, unsigned long) [57] unsigned long std::__detail::__mod<unsigned long, 4294967296ul, 1ul, 0ul>(unsigned long)
+  [53] Wolf::eatSheep(Sheep&)  [6] std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>::_M_gen_rand() [59] unsigned long std::__detail::__mod<unsigned long, 624ul, 1ul, 0ul>(unsigned long)
+  [48] Wolf::Wolf(int, int, int) [35] std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>::min() [42] std::__detail::_Adaptor<std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>, double>::_Adaptor(std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>&)
+  [20] Wolf::Wolf()           [75] std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>::seed(unsigned long) [14] std::__detail::_Adaptor<std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>, double>::operator()()
+  [50] Patch::setCountdown(int) [76] std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>::mersenne_twister_engine(unsigned long) [66] std::iterator_traits<char const*>::difference_type std::__distance<char const*>(char const*, char const*, std::random_access_iterator_tag)
+  [45] Patch::setColor(Patch::Color) [5] std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>::operator()() [15] double std::generate_canonical<double, 53ul, std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul> >(std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>&)
+  [29] Patch::growGrass(int)  [33] std::uniform_int_distribution<int>::param_type::param_type(int, int) [67] std::iterator_traits<char const*>::iterator_category std::__iterator_category<char const*>(char const* const&)
+  [51] Patch::Patch()          [7] unsigned int std::uniform_int_distribution<int>::_S_nd<unsigned long, std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>, unsigned int>(std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>&, unsigned int) [52] std::remove_reference<Wolf*&>::type&& std::move<Wolf*&>(Wolf*&)
+  [22] Sheep::reproduceSheep() [16] std::uniform_int_distribution<int>::uniform_int_distribution(int, int) [36] std::remove_reference<Sheep*&>::type&& std::move<Sheep*&>(Sheep*&)
+  [44] Sheep::eatGrass(Patch&) [8] int std::uniform_int_distribution<int>::operator()<std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul> >(std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>&) [55] std::enable_if<std::__and_<std::__not_<std::__is_tuple_like<Wolf*> >, std::is_move_constructible<Wolf*>, std::is_move_assignable<Wolf*> >::value, void>::type std::swap<Wolf*>(Wolf*&, Wolf*&)
+  [19] Sheep::Sheep()          [9] int std::uniform_int_distribution<int>::operator()<std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul> >(std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>&, std::uniform_int_distribution<int>::param_type const&) [43] std::enable_if<std::__and_<std::__not_<std::__is_tuple_like<Sheep*> >, std::is_move_constructible<Sheep*>, std::is_move_assignable<Sheep*> >::value, void>::type std::swap<Sheep*>(Sheep*&, Sheep*&)
+  [49] Sheep::Sheep(int, int, int) [40] std::uniform_real_distribution<double>::param_type::param_type(double, double) [68] std::iterator_traits<char const*>::difference_type std::distance<char const*>(char const*, char const*)
+   [3] Animal::move()         [41] std::uniform_real_distribution<double>::uniform_real_distribution(double, double) [38] __gnu_cxx::__enable_if<std::__is_char<char>::__value, bool>::__type std::operator==<char>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)
+  [47] Animal::Animal(int, int, int) [12] double std::uniform_real_distribution<double>::operator()<std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul> >(std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>&) [17] _init
