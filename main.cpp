@@ -13,7 +13,7 @@
 #include <cmath>
 
 const int maxSheep = 10000;
-const int maxWolf = 10000;
+const int maxWolf = 8500;
 Patch *patches;
 Sheep *sheepFlock;
 Sheep *nextSheepFlock;
@@ -59,13 +59,9 @@ int grass() {
 }
 
 void setup () {
-    std::cerr << "setup\n";
     // Memory allocation    
     patches = new Patch[ROWS * COLS];
-    // for (int i = 0; i < ROWS; ++i) {
-    //     patches[i] = new Patch[COLS];
-    // }
-
+ 
     sheepCount = initialNumberSheep;
     wolfCount = initialNumberWolves;
     sheepFlock = new Sheep[maxSheep];
@@ -109,7 +105,6 @@ void go () {
     ++ticks;
 
     // Simulate the sheep
-    // Sheep *newSheepFlock = new Sheep[static_cast<int>(std::ceil(sheepCount * 1.25))];
     int nextSheepCount = 0;
     for (int i = 0; i < sheepCount; ++i) {
         Sheep &sheep = sheepFlock[i];
@@ -117,7 +112,6 @@ void go () {
         if (modelVersion == SHEEP_WOLVES_GRASS) {
             sheep.energy -= 1; 
 
-            // std::cerr << "Sheep (wants to eat grass patch) at : " << it->x << ", " << it->y << "\n";
             Patch &currentPatch = patches[sheep.x * COLS + sheep.y];
             sheep.eatGrass(currentPatch); 
 
@@ -133,13 +127,10 @@ void go () {
             }
         }
     }
-    // delete[] sheepFlock;
-    // sheepFlock = nextSheepFlock;
     std::swap(sheepFlock, nextSheepFlock);
     sheepCount = nextSheepCount;
     
     // Simulate the wolves
-    // Wolf *newWolfPack = new Wolf[static_cast<int>(std::ceil(wolfCount * 1.25))];
     int nextWolfCount = 0;
     for (int i = 0; i < wolfCount; ++i) {
         Wolf &wolf = wolfPack[i];
@@ -152,12 +143,10 @@ void go () {
             Sheep &sheep = sheepFlock[j];
             if (sheep.x == wolf.x && sheep.y == wolf.y) {
                 wolf.eatSheep(sheep);
-                // sheepIt = sheepFlock.erase(sheepIt); 
             } else {
                 nextSheepFlock[nextSheepCount++] = sheep;
             }
         }
-        // delete[] sheepFlock;
         std::swap(sheepFlock, nextSheepFlock);
         sheepCount = nextSheepCount;
 
@@ -169,7 +158,6 @@ void go () {
             }
         } 
     }
-    // delete[] wolfPack;
     std::swap(wolfPack, nextWolfPack);
     wolfCount = nextWolfCount;
 
@@ -177,7 +165,6 @@ void go () {
     if (modelVersion == SHEEP_WOLVES_GRASS) {
         for (int i = 0; i < ROWS; ++i) {
             for (int j = 0; j < COLS; ++j) {
-                // std::cout << "i, j: " << i << ", " << j << "\n";
                 patches[i * COLS + j].growGrass(grassRegrowthTime);
             }
         }
@@ -194,8 +181,6 @@ int main () {
 
     int counter = 0;
     while (true) {
-        std::cout << "Checking conditions...\n";
-
         if (wolfCount == 0 && sheepCount > maxSheep) {
         std::cout << "The sheep have inherited the earth" << "\n";
         break;
@@ -208,7 +193,7 @@ int main () {
         go();
         counter++;
 
-        if (counter >= 500) {
+        if (counter >= 1000) {
         break;
         }
 
@@ -232,9 +217,5 @@ int main () {
     delete[] nextSheepFlock;
     delete[] nextWolfPack;
 
-/*     if (sheepFlock.empty() && wolfPack.empty()) {
-      std::cout << "Both Sheep and Wolves are dead" << "\n";
-    }
- */
     return 0;
 }
