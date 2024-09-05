@@ -11,7 +11,7 @@
 #include "declare_env.h"
 #include "util.h"
 
-Patch **patches;
+Patch *patches;
 Sheep *sheepFlock;
 Wolf *wolfPack;
 int sheepCount, wolfCount;
@@ -44,7 +44,7 @@ int grass() {
     if (modelVersion == SHEEP_WOLVES_GRASS) {
         for (int i = 0; i < ROWS; ++i) {
             for (int j = 0; j < COLS; ++j) {
-                if (patches[i][j].getColor() == Patch::Color::Green) {
+                if (patches[i * COLS + j].getColor() == Patch::Color::Green) {
                     ++greenCount;
                 }
             }
@@ -55,10 +55,10 @@ int grass() {
 
 void setup () {
     // Memory allocation    
-    patches = new Patch*[ROWS];
-    for (int i = 0; i < ROWS; ++i) {
-        patches[i] = new Patch[COLS];
-    }
+    patches = new Patch[ROWS * COLS];
+    // for (int i = 0; i < ROWS; ++i) {
+    //     patches[i] = new Patch[COLS];
+    // }
 
     sheepCount = initialNumberSheep;
     wolfCount = initialNumberWolves;
@@ -68,16 +68,17 @@ void setup () {
     // setup grass patches if grass needs to regrow and be consumed by sheep
     for (int i = 0; i < ROWS; ++i) {
         for (int j = 0; j < COLS; ++j) {
+            Patch &patch = patches[i * COLS + j];
             if (modelVersion == SHEEP_WOLVES_GRASS) {
                 if (rand_int(0, 1) == 0) {
-                    patches[i][j].setColor(Patch::Color::Green);
-                    patches[i][j].setCountdown(grassRegrowthTime);
+                    patch.setColor(Patch::Color::Green);
+                    patch.setCountdown(grassRegrowthTime);
                 } else {
-                    patches[i][j].setColor(Patch::Color::Brown);
-                    patches[i][j].setCountdown(rand_int(0, grassRegrowthTime-1));
+                    patch.setColor(Patch::Color::Brown);
+                    patch.setCountdown(rand_int(0, grassRegrowthTime-1));
                 }
             } else {
-                patches[i][j].setColor(Patch::Color::Green);
+                patch.setColor(Patch::Color::Green);
             }
         }
     }
@@ -110,7 +111,7 @@ void go () {
             sheep.energy -= 1; 
 
             // std::cerr << "Sheep (wants to eat grass patch) at : " << it->x << ", " << it->y << "\n";
-            Patch &currentPatch = patches[sheep.x][sheep.y];
+            Patch &currentPatch = patches[sheep.x * COLS + sheep.y];
             sheep.eatGrass(currentPatch); 
 
             if (sheep.energy >= 0) {
@@ -141,7 +142,7 @@ void go () {
         Sheep* updatedSheepFlock = new Sheep[sheepCount];
         int updatedSheepCount = 0;
         for (int j = 0; j < sheepCount; ++j) {
-            Sheep &sheep = sheepFlock[i];
+            Sheep &sheep = sheepFlock[j];
             if (sheep.x == wolf.x && sheep.y == wolf.y) {
                 wolf.eatSheep(sheep);
                 // sheepIt = sheepFlock.erase(sheepIt); 
@@ -170,7 +171,7 @@ void go () {
         for (int i = 0; i < ROWS; ++i) {
             for (int j = 0; j < COLS; ++j) {
                 // std::cout << "i, j: " << i << ", " << j << "\n";
-                patches[i][j].growGrass(grassRegrowthTime);
+                patches[i * COLS + j].growGrass(grassRegrowthTime);
             }
         }
     }
@@ -216,6 +217,11 @@ int main () {
 
     std::cout << "sheepFlock size: " << sheepCount << "\n";
     std::cout << "wolfPack size: " << wolfCount << "\n";
+
+    // Cleanup
+    delete[] patches;
+    delete[] sheepFlock;
+    delete[] wolfPack;
 
 /*     if (sheepFlock.empty() && wolfPack.empty()) {
       std::cout << "Both Sheep and Wolves are dead" << "\n";
