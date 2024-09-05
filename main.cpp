@@ -12,13 +12,13 @@
 #include "util.h"
 #include <cmath>
 
-const int maxSheep = 100;
-const int maxWolf = 100;
+const int maxSheep = 10000;
+const int maxWolf = 10000;
 Patch *patches;
-Sheep sheepFlock[maxSheep];
-Sheep nextSheepFlock[maxSheep];
-Wolf wolfPack[maxSheep];
-Wolf nextWolfPack[maxSheep];
+Sheep *sheepFlock;
+Sheep *nextSheepFlock;
+Wolf *wolfPack;
+Wolf *nextWolfPack;
 int sheepCount, wolfCount;
 int ticks = 0;
 std::string modelVersion = SHEEP_WOLVES_GRASS;
@@ -68,10 +68,10 @@ void setup () {
 
     sheepCount = initialNumberSheep;
     wolfCount = initialNumberWolves;
-    // sheepFlock = new Sheep[maxSheep];
-    // nextSheepFlock = new Sheep[maxSheep];
-    // wolfPack = new Wolf[maxWolf];
-    // nextWolfPack = new Wolf[maxWolf];
+    sheepFlock = new Sheep[maxSheep];
+    nextSheepFlock = new Sheep[maxSheep];
+    wolfPack = new Wolf[maxWolf];
+    nextWolfPack = new Wolf[maxWolf];
 
     // setup grass patches if grass needs to regrow and be consumed by sheep
     for (int i = 0; i < ROWS; ++i) {
@@ -187,20 +187,13 @@ void go () {
     std::cout << "Ticks: " << ticks << "\n";
 }
 
-int main() {
-    std::cout << "Hello\n";
-}
-
-int main_2 () {
-    std::cerr << "Main \n";
-
+int main () {
     std::chrono::steady_clock::time_point startTime = std::chrono::steady_clock::now();
 
     setup();
 
     int counter = 0;
     while (true) {
-        std::cerr << "Counter: " << counter << "\n";
         std::cout << "Checking conditions...\n";
 
         if (wolfCount == 0 && sheepCount > maxSheep) {
@@ -234,8 +227,10 @@ int main_2 () {
 
     // Cleanup
     delete[] patches;
-    // delete[] sheepFlock;
-    // delete[] wolfPack;
+    delete[] sheepFlock;
+    delete[] wolfPack;
+    delete[] nextSheepFlock;
+    delete[] nextWolfPack;
 
 /*     if (sheepFlock.empty() && wolfPack.empty()) {
       std::cout << "Both Sheep and Wolves are dead" << "\n";

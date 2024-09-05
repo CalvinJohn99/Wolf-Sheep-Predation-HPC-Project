@@ -2,8 +2,8 @@ CC=g++
 #CFLAGS=-Wall -Wextra -g
 #CFLAGS=-Wall -Wextra -O1
 #CFLAGS=-Wall -Wextra -O2
-CFLAGS=-Wall -Wextra -O0
-# CFLAGS=-Wall -Wextra -pg -O0
+#CFLAGS=-Wall -Wextra -O0
+CFLAGS=-Wall -Wextra -pg -O0
 SRCS=$(wildcard *.cpp)
 OBJS = $(patsubst %.cpp,%.o,$(SRCS))
 EXEC=main
@@ -11,8 +11,8 @@ EXEC=main
 all: $(EXEC)
 
 $(EXEC): $(OBJS)
-	$(CC) $^ -o $@
-	#$(CC) -pg $^ -o $@
+	$(CC) -pg $^ -o $@
+	# $(CC) $^ -o $@
 
 %.o: %.cpp
 	$(CC) $(CFLAGS) -c $< -o $@
