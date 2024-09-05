@@ -5,6 +5,8 @@
 #include <iostream>
 #include "util.h"
 
+Animal::Animal() {}
+
 Animal::Animal(int energy_) : energy(energy_) {
     this->x = rand_int(0, ROWS-1);
     this->y = rand_int(0, COLS-1);

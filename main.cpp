@@ -11,7 +11,10 @@
 #include "declare_env.h"
 #include "util.h"
 
-std::vector<std::vector<Patch>> patches(ROWS, std::vector<Patch>(COLS));
+Patch **patches;
+Sheep *sheepFlock;
+Wolf *wolfPack;
+int sheepCount, wolfCount;
 int ticks = 0;
 std::string modelVersion = SHEEP_WOLVES_GRASS;
 
@@ -19,13 +22,13 @@ std::string modelVersion = SHEEP_WOLVES_GRASS;
 void displayLabels() {
     if (showEnergy) {
         std::cout << "\nDisplay Wolf:\n";
-        for (const auto &wolf : Wolf::wolfPack) {
-            std::cout << "Wolf at (" << wolf.x << ", " << wolf.y << ") with energy: " << wolf.energy << "\n";
+        for (int i = 0; i < wolfCount; ++i) {
+            std::cout << "Wolf at (" << wolfPack[i].x << ", " << wolfPack[i].y << ") with energy: " << wolfPack[i].energy << "\n";
         }
         std::cout << "Display Sheep:\n";
-        for (const auto &sheep : Sheep::sheepFlock) {
+        for (int i = 0; i < sheepCount; ++i) {
             if (modelVersion == SHEEP_WOLVES_GRASS) {
-                std::cout << "Sheep at (" << sheep.x << ", " << sheep.y << ") with energy: " << sheep.energy << "\n";
+                std::cout << "Sheep at (" << sheepFlock[i].x << ", " << sheepFlock[i].y << ") with energy: " << sheepFlock[i].energy << "\n";
             }
         }
     } else {
@@ -51,6 +54,16 @@ int grass() {
 }
 
 void setup () {
+    // Memory allocation    
+    patches = new Patch*[ROWS];
+    for (int i = 0; i < ROWS; ++i) {
+        patches[i] = new Patch[COLS];
+    }
+
+    sheepCount = initialNumberSheep;
+    wolfCount = initialNumberWolves;
+    sheepFlock = new Sheep[sheepCount];
+    wolfPack = new Wolf[wolfCount];
 
     // setup grass patches if grass needs to regrow and be consumed by sheep
     for (int i = 0; i < ROWS; ++i) {
@@ -69,16 +82,14 @@ void setup () {
         }
     }
 
-    // create the sheep
-    for (int i = 0; i < initialNumberSheep; ++i) {
-        int initialEnergy = rand_int(0, 2 * sheepGainFromFood - 1);
-        Sheep::sheepFlock.push_back(Sheep(initialEnergy));
+    // initialize sheepFlock
+    for (int i = 0; i < sheepCount; ++i) {
+        sheepFlock[i] = Sheep();
     }
 
-    // create the wolves
-    for (int i = 0; i < initialNumberWolves; ++i) { // pre-increment for performance and best practice
-        int initialEnergy = rand_int(0, 2 * wolfGainFromFood - 1);
-        Wolf::wolfPack.push_back(Wolf(initialEnergy));
+    // initialize the wolfPack
+    for (int i = 0; i < wolfCount; ++i) { // pre-increment for performance and best practice
+        wolfPack[i] = Wolf();
     }
 
     displayLabels();
@@ -89,8 +100,11 @@ void go () {
     ++ticks;
 
     // Simulate the sheep
-    std::vector<Sheep> newSheepFlock;
-    for (Sheep &sheep : Sheep::sheepFlock) {
+    Sheep *newSheepFlock = new Sheep[sheepCount];
+    int newSheepCount = 0;
+
+    for (int i = 0; i < sheepCount; ++i) {
+        Sheep &sheep = sheepFlock[i];
         sheep.move();
         if (modelVersion == SHEEP_WOLVES_GRASS) {
             sheep.energy -= 1; 
@@ -100,46 +114,56 @@ void go () {
             sheep.eatGrass(currentPatch); 
 
             if (sheep.energy >= 0) {
-                newSheepFlock.push_back(sheep);
+                newSheepFlock[newSheepCount++] = sheep;
                 if (rand_double() < sheepReproduce) {
-                    newSheepFlock.push_back(sheep.reproduceSheep());
+                    newSheepFlock[newSheepCount++] = sheep.reproduceSheep();
                 }
             } 
         } else {
             if (rand_double() < sheepReproduce) {
-                newSheepFlock.push_back(sheep.reproduceSheep());
+                newSheepFlock[newSheepCount++] = sheep.reproduceSheep();
             }
         }
     }
-    Sheep::sheepFlock = newSheepFlock;
+    delete[] sheepFlock;
+    sheepFlock = newSheepFlock;
+    sheepCount = newSheepCount;
     
     // Simulate the wolves
-    std::vector<Wolf> newWolfPack;
-    for (Wolf &wolf: Wolf::wolfPack) {
+    Wolf *newWolfPack = new Wolf[wolfCount];
+    int newWolfCount = 0;
+    for (int i = 0; i < wolfCount; ++i) {
+        Wolf &wolf = wolfPack[i];
         wolf.move();
         wolf.energy -= 1; 
 
         // Wolves eat sheep
-        newSheepFlock.clear();
-        for (Sheep &sheep : Sheep::sheepFlock) {
+        Sheep* updatedSheepFlock = new Sheep[sheepCount];
+        int updatedSheepCount = 0;
+        for (int j = 0; j < sheepCount; ++j) {
+            Sheep &sheep = sheepFlock[i];
             if (sheep.x == wolf.x && sheep.y == wolf.y) {
                 wolf.eatSheep(sheep);
-                // sheepIt = Sheep::sheepFlock.erase(sheepIt); 
+                // sheepIt = sheepFlock.erase(sheepIt); 
             } else {
-                newSheepFlock.push_back(sheep);
+                updatedSheepFlock[updatedSheepCount++] = sheep;
             }
         }
-        Sheep::sheepFlock = newSheepFlock;
+        delete[] sheepFlock;
+        sheepFlock = updatedSheepFlock;
+        sheepCount = updatedSheepCount;
 
         // Wolves death condition
         if (wolf.energy >= 0) {
-            newWolfPack.push_back(wolf);
+            newWolfPack[newWolfCount++] = wolf;
             if (rand_double() < wolfReproduce) {
-                newWolfPack.push_back(wolf.reproduceWolf());
+                newWolfPack[newWolfCount++] = wolf.reproduceWolf();
             }
         } 
     }
-    Wolf::wolfPack = newWolfPack;
+    delete[] wolfPack;
+    wolfPack = newWolfPack;
+    wolfCount = newWolfCount;
 
     // Grow the grass
     if (modelVersion == SHEEP_WOLVES_GRASS) {
@@ -156,7 +180,7 @@ void go () {
 }
 
 int main () {
-    // std::chrono::steady_clock::time_point startTime = std::chrono::steady_clock::now();
+    std::chrono::steady_clock::time_point startTime = std::chrono::steady_clock::now();
 
     setup();
 
@@ -164,11 +188,11 @@ int main () {
     while (true) {
       std::cout << "Checking conditions...\n";
 
-      if (Wolf::wolfPack.empty() && (int) Sheep::sheepFlock.size() > maxSheep) {
+      if (wolfCount == 0 && sheepCount > maxSheep) {
         std::cout << "The sheep have inherited the earth" << "\n";
         break;
       }
-      if (Sheep::sheepFlock.empty() && Wolf::wolfPack.empty()) {
+      if (sheepCount == 0 && wolfCount == 0) {
             std::cout << "All sheep and wolves are gone!" << "\n";
             break;
       }
@@ -176,7 +200,7 @@ int main () {
       go();
       counter++;
 
-      if (counter >= 150) {
+      if (counter >= 500) {
         break;
       }
 
@@ -184,16 +208,16 @@ int main () {
     //   std::this_thread::sleep_for(std::chrono::milliseconds(250));
     }
 
-    // std::chrono::steady_clock::time_point stopTime = std::chrono::steady_clock::now();
-    // std::chrono::duration<double> time_span = (std::chrono::duration_cast<std::chrono::duration<double>>(stopTime - startTime));
-    // double dt = time_span.count();
-    // std::cout << "Time to run main (timespan dt): " << dt << "\n"; 
+    std::chrono::steady_clock::time_point stopTime = std::chrono::steady_clock::now();
+    std::chrono::duration<double> time_span = (std::chrono::duration_cast<std::chrono::duration<double>>(stopTime - startTime));
+    double dt = time_span.count();
+    std::cout << "Time to run main (timespan dt): " << dt << "\n"; 
 
 
-    std::cout << "sheepFlock size: " << Sheep::sheepFlock.size() << "\n";
-    std::cout << "wolfPack size: " << Wolf::wolfPack.size() << "\n";
+    std::cout << "sheepFlock size: " << sheepCount << "\n";
+    std::cout << "wolfPack size: " << wolfCount << "\n";
 
-/*     if (Sheep::sheepFlock.empty() && Wolf::wolfPack.empty()) {
+/*     if (sheepFlock.empty() && wolfPack.empty()) {
       std::cout << "Both Sheep and Wolves are dead" << "\n";
     }
  */

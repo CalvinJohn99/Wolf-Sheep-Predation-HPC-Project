@@ -4,8 +4,11 @@
 #include <vector>
 #include "util.h"
 
-std::vector<Wolf> Wolf::wolfPack;
-
+Wolf::Wolf() : Animal() {
+    this->energy = rand_int(0, 2 * wolfGainFromFood - 1);
+    this->x = rand_int(0, ROWS-1);
+    this->y = rand_int(0, COLS-1);
+}
 Wolf::Wolf(int energy) : Animal(energy) {}
 Wolf::Wolf(int energy, int x, int y) : Animal(energy, x, y) {}
 

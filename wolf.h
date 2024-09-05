@@ -8,8 +8,7 @@
 
 class Wolf : public Animal {
     public:
-        static std::vector<Wolf> wolfPack;
-
+        Wolf();
         Wolf(int energy);
         Wolf(int energy , int x, int y);
 
