@@ -106,6 +106,7 @@ void go () {
                 }
             } 
         } else {
+            newSheepFlock.push_back(sheep);
             if (rand_double() < sheepReproduce) {
                 newSheepFlock.push_back(sheep.reproduceSheep());
             }
