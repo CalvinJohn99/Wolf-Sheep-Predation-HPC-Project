@@ -3,8 +3,8 @@
 std::string SHEEP_WOLVES_GRASS = "sheep-wolves-grass";
 std::string SHEEP_WOLVES = "sheep-wolves";
 
-int ROWS = 60; // 1000 ends in wolves death
-int COLS = 60; // 60 meands stabilisation
+int ROWS = 100; // 1000 ends in wolves death
+int COLS = 100; // 60 meands stabilisation
 
 int sheepGainFromFood = 4;
 int wolfGainFromFood = 20;

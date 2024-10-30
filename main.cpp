@@ -1,3 +1,4 @@
+// #include <mpi.h>
 #include <iostream>
 #include <string>
 #include <vector>
@@ -157,7 +158,7 @@ void go () {
 }
 
 int main () {
-    // std::chrono::steady_clock::time_point startTime = std::chrono::steady_clock::now();
+    std::chrono::steady_clock::time_point startTime = std::chrono::steady_clock::now();
 
     setup();
 
@@ -177,7 +178,7 @@ int main () {
       go();
       counter++;
 
-      if (counter >= 150) {
+      if (counter >= 2500) {
         break;
       }
 
@@ -185,10 +186,10 @@ int main () {
     //   std::this_thread::sleep_for(std::chrono::milliseconds(250));
     }
 
-    // std::chrono::steady_clock::time_point stopTime = std::chrono::steady_clock::now();
-    // std::chrono::duration<double> time_span = (std::chrono::duration_cast<std::chrono::duration<double>>(stopTime - startTime));
-    // double dt = time_span.count();
-    // std::cout << "Time to run main (timespan dt): " << dt << "\n"; 
+    std::chrono::steady_clock::time_point stopTime = std::chrono::steady_clock::now();
+    std::chrono::duration<double> time_span = (std::chrono::duration_cast<std::chrono::duration<double>>(stopTime - startTime));
+    double dt = time_span.count();
+    std::cout << "Time to run main (timespan dt): " << dt << "\n"; 
 
 
     std::cout << "sheepFlock size: " << Sheep::sheepFlock.size() << "\n";
