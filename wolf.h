@@ -10,7 +10,7 @@ class Wolf : public Animal {
     public:
         static std::vector<Wolf> wolfPack;
 
-        Wolf(int energy);
+        Wolf(int energy, int rows);
         Wolf(int energy , int x, int y);
 
         void eatSheep(Sheep &sheep);

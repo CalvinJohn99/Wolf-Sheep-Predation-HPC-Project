@@ -6,7 +6,7 @@
 
 std::vector<Wolf> Wolf::wolfPack;
 
-Wolf::Wolf(int energy) : Animal(energy) {}
+Wolf::Wolf(int energy, int rows) : Animal(energy, rows) {}
 Wolf::Wolf(int energy, int x, int y) : Animal(energy, x, y) {}
 
 void Wolf::eatSheep(Sheep &sheep) {

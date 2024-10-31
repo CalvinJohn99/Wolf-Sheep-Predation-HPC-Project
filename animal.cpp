@@ -5,8 +5,8 @@
 #include <iostream>
 #include "util.h"
 
-Animal::Animal(int energy_) : energy(energy_) {
-    this->x = rand_int(0, ROWS-1);
+Animal::Animal(int energy_, int rows) : energy(energy_) {
+    this->x = rand_int(0, rows-1);
     this->y = rand_int(0, COLS-1);
     // std::cout << "Random placement: x = " << this->x << ", y = " << this->y << std::endl;
 }

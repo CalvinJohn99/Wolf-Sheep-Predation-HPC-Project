@@ -9,7 +9,7 @@ class Sheep : public Animal {
     public:
         static std::vector<Sheep> sheepFlock;
 
-        Sheep(int energy);
+        Sheep(int energy, int rows);
         Sheep(int energy, int x, int y);
 
         void eatGrass(Patch &patch);

@@ -10,7 +10,7 @@
 
 std::vector<Sheep> Sheep::sheepFlock;
 
-Sheep::Sheep(int energy) : Animal(energy) {}
+Sheep::Sheep(int energy, int rows) : Animal(energy, rows) {}
 Sheep::Sheep(int energy, int x, int y) : Animal(energy, x, y) {}
 
 void Sheep::eatGrass(Patch &patch) {
