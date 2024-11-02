@@ -8,6 +8,7 @@ class Animal {
         int energy;
         int x, y;
         
+        Animal();
         Animal(int energy_, int rows);
         Animal(int energy_, int x_, int y_);
 

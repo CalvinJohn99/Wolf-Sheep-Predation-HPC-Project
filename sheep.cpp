@@ -10,6 +10,7 @@
 
 std::vector<Sheep> Sheep::sheepFlock;
 
+Sheep::Sheep() : Animal() {}
 Sheep::Sheep(int energy, int rows) : Animal(energy, rows) {}
 Sheep::Sheep(int energy, int x, int y) : Animal(energy, x, y) {}
 

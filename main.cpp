@@ -120,30 +120,66 @@ void setup (std::vector<std::vector<Patch>>& local_patches, int rows_per_rank, i
     ticks = 0;
 }
 
-/* void go () {
+/* void go (std::vector<std::vector<Patch>>& local_patches, int my_rank, int world_size, int rows_per_rank, MPI_Datatype MPI_Sheep, MPI_Datatype MPI_Wolf) {
     ++ticks;
 
     // Simulate the sheep
     std::vector<Sheep> newSheepFlock;
+    std::vector<Sheep> sendSheepUp;
+    std::vector<Sheep> sendSheepDown;
     for (Sheep &sheep : Sheep::sheepFlock) {
         sheep.move();
-        if (modelVersion == SHEEP_WOLVES_GRASS) {
-            sheep.energy -= 1; 
+        // Conditionals for sending sheep between processes
+        if (my_rank > 0 && sheep.x < 0) {
+            sheep.x = rows_per_rank - 1;
+            if (modelVersion == SHEEP_WOLVES_GRASS) {
+                sheep.energy -= 1;
+            }
+            sendSheepUp.push_back(sheep);
+        } else if (my_rank < (world_size - 1) && sheep.x == rows_per_rank) {
+            sheep.x = 0;
+            if (modelVersion == SHEEP_WOLVES_GRASS) {
+                sheep.energy -= 1;
+            }
+            sendSheepDown.push_back(sheep);
 
-            // std::cerr << "Sheep (wants to eat grass patch) at : " << it->x << ", " << it->y << "\n";
-            Patch &currentPatch = patches[sheep.x][sheep.y];
-            sheep.eatGrass(currentPatch); 
-
-            if (sheep.energy >= 0) {
-                newSheepFlock.push_back(sheep);
-                if (rand_double() < sheepReproduce) {
-                    newSheepFlock.push_back(sheep.reproduceSheep());
-                }
-            } 
+        // handling sheep behavior when it doesn't need to be sent to another process
         } else {
-            newSheepFlock.push_back(sheep);
-            if (rand_double() < sheepReproduce) {
-                newSheepFlock.push_back(sheep.reproduceSheep());
+            if (modelVersion == SHEEP_WOLVES_GRASS) {
+                sheep.energy -= 1; 
+                Patch &currentPatch = local_patches[sheep.x][sheep.y];
+                sheep.eatGrass(currentPatch); 
+                if (sheep.energy >= 0) {
+                    newSheepFlock.push_back(sheep);
+                    // handling reproduction
+                    if (rand_double() < sheepReproduce) {
+                        Sheep &sheepOffspring = sheep.reproduceSheep();
+                        if (my_rank > 0 && sheepOffspring.x < 0) {
+                            sheepOffspring.x = rows_per_rank - 1;
+                            sendSheepUp.push_back(sheepOffspring);
+                        } else if (my_rank < (world_size -1) && sheepOffspring.x == rows_per_rank) {
+                            sheepOffspring.x = 0;
+                            sendSheepDown.push_back(sheepOffspring);
+                        } else {
+                            newSheepFlock.push_back(sheepOffspring);
+                        }
+                    }
+                } 
+            } else {
+                newSheepFlock.push_back(sheep);
+                // handling sheep reproduction
+                if (rand_double() < sheepReproduce) {
+                    Sheep &sheepOffspring = sheep.reproduceSheep();
+                    if (my_rank > 0 && sheepOffspring.x < 0) {
+                        sheepOffspring.x = rows_per_rank;
+                        sendSheepUp.push_back(sheepOffspring);
+                    } else if (my_rank < (world_size -1) && sheepOffspring.x == rows_per_rank) {
+                        sheepOffspring.x = 0;
+                        sendSheepDown.push_back(sheepOffspring);
+                    } else {
+                        newSheepFlock.push_back(sheepOffspring);
+                    }
+                }
             }
         }
     }
@@ -198,6 +234,7 @@ int main (int argc, char** argv) {
     MPI_Datatype MPI_Sheep = createSheepMPIType();
     MPI_Datatype MPI_Wolf = createWolfMPIType();
 
+    MPI_Status status;
     int my_rank, world_size;
     MPI_Comm_rank(MPI_COMM_WORLD, &my_rank);
     MPI_Comm_size(MPI_COMM_WORLD, &world_size);
@@ -210,19 +247,126 @@ int main (int argc, char** argv) {
     std::vector<std::vector<Patch>> local_patches(rows_per_rank, std::vector<Patch>(COLS));
 
     setup(local_patches, rows_per_rank, world_size);
-    int local_sheep_count = Sheep::sheepFlock.size();
-    int local_wolf_count = Wolf::wolfPack.size();
-    int total_sheep_count = 0;
-    int total_wolf_count = 0;
-    MPI_Allreduce(&local_sheep_count, &total_sheep_count, 1, MPI_INT, MPI_SUM, MPI_COMM_WORLD);
-    MPI_Allreduce(&local_wolf_count, &total_wolf_count, 1, MPI_INT, MPI_SUM, MPI_COMM_WORLD);
 
-    std::cout << "Hello from process: " << my_rank << " out of " << world_size << " processes\n";
-    std::cout << "process: " << my_rank << " has " << local_sheep_count << " sheep out of a total " << total_sheep_count << " sheep." << "\n";
-    std::cout << "process: " << my_rank << " has " << local_wolf_count << " wolves out of a total " << total_wolf_count << " wolf count." << "\n";
+    // std::cout << "Hello from process: " << my_rank << " out of " << world_size << " processes\n";
+    // std::cout << "process: " << my_rank << " has " << local_sheep_count << " sheep out of a total " << total_sheep_count << " sheep." << "\n";
+    // ::cout << "process: " << my_rank << " has " << local_wolf_count << " wolves out of a total " << total_wolf_count << " wolf count." << "\n";
+    // displayLabels(my_rank);
 
-    displayLabels(my_rank);
+    if (my_rank < world_size - 1) {
+        // Populate sheep to send down
+        std::vector<Sheep> sendSheepDown;
+        Sheep sheepToTransfer = Sheep(1000000, 49, 0);
+        Sheep::sheepFlock.push_back(sheepToTransfer);
+        for (Sheep &sheep : Sheep::sheepFlock) {
+            if (sheep.x == 49 && sheep.energy == 1000000) {
+                std::cout << "Sheep to send down: \n";
+                std::cout << "Sheep (process: " << my_rank << ") at (" << sheep.x << ", " << sheep.y << ") with energy: " << sheep.energy << "\n";
+                sheep.move();
+                sheep.energy -= 1;
+            }
+        }
+        std::vector<Sheep> newSheepFlock;
+        for (Sheep &sheep : Sheep::sheepFlock) {
+            if (sheep.x >= rows_per_rank) {
+                sheep.x = 0;
+                sendSheepDown.push_back(sheep);
+            } else {
+                newSheepFlock.push_back(sheep);
+            }
+        }
+        Sheep::sheepFlock = newSheepFlock;
+        // Send sheep down
+        int sheep_count = sendSheepDown.size();
+        MPI_Send(&sheep_count, 1, MPI_INT, my_rank + 1, 0, MPI_COMM_WORLD);
+        MPI_Send(sendSheepDown.data(), sheep_count, MPI_Sheep, my_rank + 1, my_rank + 100, MPI_COMM_WORLD);
 
+        // recieve sheep from below
+        int numSheepRecieved;
+        MPI_Recv(&numSheepRecieved, 1, MPI_INT, my_rank + 1, 1, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+        std::vector<Sheep> sheepFromBelow(numSheepRecieved);
+        MPI_Recv(sheepFromBelow.data(), numSheepRecieved, MPI_Sheep, my_rank + 1, (my_rank + 1 + 100), MPI_COMM_WORLD, &status);
+        for (Sheep &sheep : sheepFromBelow) {
+            Patch &currentPatch = local_patches[sheep.x][sheep.y];
+            sheep.eatGrass(currentPatch);
+            if (sheep.energy >= 0) {
+                Sheep::sheepFlock.push_back(sheep);
+                // handling reproduction
+                if (rand_double() < sheepReproduce) {
+                    Sheep sheepOffspring = sheep.reproduceSheep();
+                    if (sheepOffspring.x >= rows_per_rank) {
+                        sheepOffspring.x = rows_per_rank - 1;
+                    }
+                    Sheep::sheepFlock.push_back(sheepOffspring);
+                }
+            } 
+        }
+        // print sheep recieved
+        for (Sheep &sheep : Sheep::sheepFlock) {
+            if (sheep.energy > 10000) {
+                std::cout << "Sheep recieved from below: \n";
+                std::cout << "Sheep (process: " << my_rank << ") at (" << sheep.x << ", " << sheep.y << ") with energy: " << sheep.energy << "\n";
+            }
+        }
+    }
+
+    if (my_rank > 0) {
+        // Populate sheep to send up
+        std::vector<Sheep> sendSheepUp;
+        Sheep sheepToTransfer = Sheep(1000001, 0, 1);
+        Sheep::sheepFlock.push_back(sheepToTransfer);
+        for (Sheep &sheep : Sheep::sheepFlock) {
+            if (sheep.x == 0 && sheep.energy == 1000001) {
+                std::cout << "Sheep to send up: \n";
+                std::cout << "Sheep (process: " << my_rank << ") at (" << sheep.x << ", " << sheep.y << ") with energy: " << sheep.energy << "\n";
+                sheep.x -= 1;
+                sheep.energy -= 1;
+            }
+        }
+        std::vector<Sheep> newSheepFlock;
+        for (Sheep &sheep : Sheep::sheepFlock) {
+            if (sheep.x < 0) {
+                sheep.x = 49;
+                sendSheepUp.push_back(sheep);
+            } else {
+                newSheepFlock.push_back(sheep);
+            }
+        }
+
+        Sheep::sheepFlock = newSheepFlock;
+        // Send sheep up
+        int sheep_count = sendSheepUp.size();
+        MPI_Send(&sheep_count, 1, MPI_INT, my_rank - 1, 1, MPI_COMM_WORLD);
+        MPI_Send(sendSheepUp.data(), sheep_count, MPI_Sheep, my_rank - 1, my_rank + 100, MPI_COMM_WORLD);
+
+        // recieve sheep from above
+        int numSheepRecieved;
+        MPI_Recv(&numSheepRecieved, 1, MPI_INT, my_rank - 1, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+        std::vector<Sheep> sheepFromAbove(numSheepRecieved);
+        MPI_Recv(sheepFromAbove.data(), numSheepRecieved, MPI_Sheep, my_rank - 1, (my_rank - 1 + 100), MPI_COMM_WORLD, &status);
+        for (Sheep &sheep : sheepFromAbove) {
+            Patch &currentPatch = local_patches[sheep.x][sheep.y];
+            sheep.eatGrass(currentPatch);
+            if (sheep.energy >= 0) {
+                Sheep::sheepFlock.push_back(sheep);
+                // handling reproduction
+                if (rand_double() < sheepReproduce) {
+                    Sheep sheepOffspring = sheep.reproduceSheep();
+                    if (sheepOffspring.x < 0) {
+                        sheepOffspring.x = 0;
+                    }
+                    Sheep::sheepFlock.push_back(sheepOffspring);
+                }
+            } 
+        }
+        // print sheep recieved
+        for (Sheep &sheep : Sheep::sheepFlock) {
+            if (sheep.energy > 10000) {
+                std::cout << "Sheep recieved from above: \n";
+                std::cout << "Sheep (process: " << my_rank << ") at (" << sheep.x << ", " << sheep.y << ") with energy: " << sheep.energy << "\n";
+            }
+        }
+    }
 
     int counter = 0;
 /*     while (true) {
@@ -246,6 +390,13 @@ int main (int argc, char** argv) {
     std::chrono::steady_clock::time_point stopTime = std::chrono::steady_clock::now();
     std::chrono::duration<double> time_span = (std::chrono::duration_cast<std::chrono::duration<double>>(stopTime - startTime));
     double dt = time_span.count();
+
+    int local_sheep_count = Sheep::sheepFlock.size();
+    int local_wolf_count = Wolf::wolfPack.size();
+    int total_sheep_count = 0;
+    int total_wolf_count = 0;
+    MPI_Allreduce(&local_sheep_count, &total_sheep_count, 1, MPI_INT, MPI_SUM, MPI_COMM_WORLD);
+    MPI_Allreduce(&local_wolf_count, &total_wolf_count, 1, MPI_INT, MPI_SUM, MPI_COMM_WORLD);
 
     MPI_Barrier(MPI_COMM_WORLD);
     if (my_rank == 0) {
