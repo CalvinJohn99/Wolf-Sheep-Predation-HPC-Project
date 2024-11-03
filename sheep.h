@@ -14,7 +14,7 @@ class Sheep : public Animal {
         Sheep(int energy, int x, int y);
 
         void eatGrass(Patch &patch);
-        Sheep reproduceSheep();
+        Sheep reproduceSheep(int my_rank, int world_size, int rows_per_rank);
 };
 
 

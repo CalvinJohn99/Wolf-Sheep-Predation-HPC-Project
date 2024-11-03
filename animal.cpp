@@ -19,8 +19,13 @@ Animal::Animal(int energy_, int rows) : energy(energy_) {
 
 Animal::Animal(int energy_, int x_, int y_) : energy(energy_), x(x_), y(y_) {}
 
-void Animal::move() {
-    // this->x = (x + (rand_int(-1, 1)));
-    this->x = (x + 1);
-    // this->y = (y + (rand_int(-1, 1)) + COLS) % COLS;
+void Animal::move(int my_rank, int world_size, int rows_per_rank) {
+    this->x = (x + (rand_int(-1, 1)));
+    this->y = (y + (rand_int(-1, 1)) + COLS) % COLS;
+    if (this->x < 0 and my_rank == 0) {
+        this->x = 0;
+    }
+    if (this->x >= rows_per_rank && my_rank == (world_size - 1)) {
+        this->x = rows_per_rank - 1;
+    }
 }

@@ -16,7 +16,7 @@ class Wolf : public Animal {
 
         void eatSheep(Sheep &sheep);
 
-        Wolf reproduceWolf();
+        Wolf reproduceWolf(int my_rank, int world_size, int rows_per_rank);
 };
 
 #endif
