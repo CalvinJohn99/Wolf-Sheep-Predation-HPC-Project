@@ -452,7 +452,7 @@ int main (int argc, char** argv) {
             break;
         }
         go(local_patches, my_rank, world_size, rows_per_rank, status, MPI_Sheep, MPI_Wolf);
-        MPI_Barrier(MPI_COMM_WORLD);
+        // MPI_Barrier(MPI_COMM_WORLD);
 
         local_sheep_count = Sheep::sheepFlock.size();
         local_wolf_count = Wolf::wolfPack.size();
