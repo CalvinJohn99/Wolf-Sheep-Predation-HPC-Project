@@ -461,7 +461,7 @@ int main (int argc, char** argv) {
         MPI_Allreduce(&local_sheep_count, &total_sheep_count, 1, MPI_INT, MPI_SUM, MPI_COMM_WORLD);
         MPI_Allreduce(&local_wolf_count, &total_wolf_count, 1, MPI_INT, MPI_SUM, MPI_COMM_WORLD);
         counter++;
-        if (counter >= 2500) { //2500 was benchmark for non-MPI
+        if (counter >= 1) { //2500 was benchmark for non-MPI
             break;
         }
     }

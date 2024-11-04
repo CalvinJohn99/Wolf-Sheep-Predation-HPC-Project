@@ -9,8 +9,10 @@ EXEC=main
 
 all: $(EXEC)
 
+#$(MPICXX) -pg $^ -o $@
 $(EXEC): $(OBJS)
-	$(MPICXX) -pg $^ -o $@
+	$(MPICXX) $(CFLAGS) $^ -o $@
+
 
 %.o: %.cpp
 	$(MPICXX) $(CFLAGS) -c $< -o $@
