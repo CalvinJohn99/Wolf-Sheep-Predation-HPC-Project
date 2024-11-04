@@ -95,7 +95,6 @@ void go () {
         if (modelVersion == SHEEP_WOLVES_GRASS) {
             sheep.energy -= 1; 
 
-            // std::cerr << "Sheep (wants to eat grass patch) at : " << it->x << ", " << it->y << "\n";
             Patch &currentPatch = patches[sheep.x][sheep.y];
             sheep.eatGrass(currentPatch); 
 
@@ -124,7 +123,6 @@ void go () {
         for (Sheep &sheep : Sheep::sheepFlock) {
             if (sheep.x == wolf.x && sheep.y == wolf.y) {
                 wolf.eatSheep(sheep);
-                // sheepIt = Sheep::sheepFlock.erase(sheepIt); 
             } else {
                 newSheepFlock.push_back(sheep);
             }
@@ -145,7 +143,6 @@ void go () {
     if (modelVersion == SHEEP_WOLVES_GRASS) {
         for (int i = 0; i < ROWS; ++i) {
             for (int j = 0; j < COLS; ++j) {
-                // std::cout << "i, j: " << i << ", " << j << "\n";
                 patches[i][j].growGrass(grassRegrowthTime);
             }
         }
@@ -156,7 +153,7 @@ void go () {
 }
 
 int main () {
-    // std::chrono::steady_clock::time_point startTime = std::chrono::steady_clock::now();
+    std::chrono::steady_clock::time_point startTime = std::chrono::steady_clock::now();
 
     setup();
 
@@ -176,26 +173,18 @@ int main () {
       go();
       counter++;
 
-      if (counter >= 150) {
+      if (counter >= 1) {
         break;
       }
-
-    // sleep between ticks to simulate
-    //   std::this_thread::sleep_for(std::chrono::milliseconds(250));
     }
 
-    // std::chrono::steady_clock::time_point stopTime = std::chrono::steady_clock::now();
-    // std::chrono::duration<double> time_span = (std::chrono::duration_cast<std::chrono::duration<double>>(stopTime - startTime));
-    // double dt = time_span.count();
-    // std::cout << "Time to run main (timespan dt): " << dt << "\n"; 
-
+    std::chrono::steady_clock::time_point stopTime = std::chrono::steady_clock::now();
+    std::chrono::duration<double> time_span = (std::chrono::duration_cast<std::chrono::duration<double>>(stopTime - startTime));
+    double dt = time_span.count();
+    std::cout << "Time to run main (timespan dt): " << dt << "\n"; 
 
     std::cout << "sheepFlock size: " << Sheep::sheepFlock.size() << "\n";
     std::cout << "wolfPack size: " << Wolf::wolfPack.size() << "\n";
 
-/*     if (Sheep::sheepFlock.empty() && Wolf::wolfPack.empty()) {
-      std::cout << "Both Sheep and Wolves are dead" << "\n";
-    }
- */
     return 0;
 }
