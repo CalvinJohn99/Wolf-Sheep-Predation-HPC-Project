@@ -1,4 +1,5 @@
 #include <mpi.h>
+#include <omp.h>
 #include <iostream>
 #include <string>
 #include <vector>
@@ -11,6 +12,8 @@
 #include <chrono>
 #include "declare_env.h"
 #include "util.h"
+
+#define BLOCK_SIZE 16
 
 int ticks = 0;
 std::string modelVersion = SHEEP_WOLVES_GRASS;
@@ -69,37 +72,64 @@ void displayLabels(int my_rank) {
     std::cout << "\n"; 
 }
 
-int grass(const std::vector<std::vector<Patch>>& local_patches, int rows_per_rank) {
+int grass(const std::vector<Patch>& local_patches, int rows_per_rank) {
     int greenCount = 0;
-
-    // Only count green patches if we're using the sheep-wolves-grass model
+    int unroll_factor = 50;
     if (modelVersion == SHEEP_WOLVES_GRASS) {
-        for (int i = 0; i < rows_per_rank; ++i) {
-            for (int j = 0; j < COLS; ++j) {
-                if (local_patches[i][j].getColor() == Patch::Color::Green) {
-                    ++greenCount;
+        #pragma omp parallel for reduction(+:greenCount)
+        for (int i = 0; i < rows_per_rank; i++) {
+            for (int j = 0; j < COLS; j += unroll_factor) {
+                int count = 0;
+                for (int k = 0; k < unroll_factor; ++k) {
+                    if (j + k < COLS) { 
+                        if (local_patches[i * COLS + (j + k)].getColor() == Patch::Color::Green) {
+                            count++;
+                        }
+                    }
                 }
+                greenCount += count; 
             }
         }
     }
     return greenCount;
 }
 
-void setup (std::vector<std::vector<Patch>>& local_patches, int rows_per_rank, int world_size) {
+void setup (std::vector<Patch>& local_patches, int rows_per_rank, int world_size) {
 
     // setup grass patches if grass needs to regrow and be consumed by sheep
+    int unroll_factor = 4;
     for (int i = 0; i < rows_per_rank; ++i) {
-        for (int j = 0; j < COLS; ++j) {
+        int j = 0;
+        for (; j <= COLS - unroll_factor; j += unroll_factor) {
+            for (int k = 0; k < unroll_factor; ++k) {
+                int index = i * COLS + (j + k);
+                if (modelVersion == SHEEP_WOLVES_GRASS) {
+                    if (rand_int(0, 1) == 0) {
+                        local_patches[index].setColor(Patch::Color::Green);
+                        local_patches[index].setCountdown(grassRegrowthTime);
+                    } else {
+                        local_patches[index].setColor(Patch::Color::Brown);
+                        local_patches[index].setCountdown(rand_int(0, grassRegrowthTime - 1));
+                    }
+                } else {
+                    local_patches[index].setColor(Patch::Color::Green);
+                }
+            }
+        }
+        
+        // Process remaining elements if COLS is not a multiple of unroll_factor
+        for (; j < COLS; ++j) {
+            int index = i * COLS + j;
             if (modelVersion == SHEEP_WOLVES_GRASS) {
                 if (rand_int(0, 1) == 0) {
-                    local_patches[i][j].setColor(Patch::Color::Green);
-                    local_patches[i][j].setCountdown(grassRegrowthTime);
+                    local_patches[index].setColor(Patch::Color::Green);
+                    local_patches[index].setCountdown(grassRegrowthTime);
                 } else {
-                    local_patches[i][j].setColor(Patch::Color::Brown);
-                    local_patches[i][j].setCountdown(rand_int(0, grassRegrowthTime-1));
+                    local_patches[index].setColor(Patch::Color::Brown);
+                    local_patches[index].setCountdown(rand_int(0, grassRegrowthTime - 1));
                 }
             } else {
-                local_patches[i][j].setColor(Patch::Color::Green);
+                local_patches[index].setColor(Patch::Color::Green);
             }
         }
     }
@@ -120,7 +150,7 @@ void setup (std::vector<std::vector<Patch>>& local_patches, int rows_per_rank, i
     ticks = 0;
 }
 
-void exchangeAnimals (std::vector<std::vector<Patch>>& local_patches, int my_rank, int world_size, int rows_per_rank, std::vector<Sheep>& sendSheepUp, std::vector<Sheep>& sendSheepDown, std::vector<Wolf>& sendWolfUp, std::vector<Wolf>& sendWolfDown, MPI_Status& status, MPI_Datatype MPI_Sheep, MPI_Datatype MPI_Wolf) {
+void exchangeAnimals (std::vector<Patch>& local_patches, int my_rank, int world_size, int rows_per_rank, std::vector<Sheep>& sendSheepUp, std::vector<Sheep>& sendSheepDown, std::vector<Wolf>& sendWolfUp, std::vector<Wolf>& sendWolfDown, MPI_Status& status, MPI_Datatype MPI_Sheep, MPI_Datatype MPI_Wolf) {
     std::vector<Sheep> newSheepFlock;
     int sheepUpSize = sendSheepUp.size();
     int sheepDownSize = sendSheepDown.size();
@@ -140,7 +170,7 @@ void exchangeAnimals (std::vector<std::vector<Patch>>& local_patches, int my_ran
         if (numSheepRecieved > 0) {
             for (Sheep &sheep : sheepFromBelow) {
                 // std::cout << "**Process: " << my_rank << " recieved sheep at (" << sheep.x << "," << sheep.y << ") with energy: " << sheep.energy << " from below\n";
-                Patch &currentPatch = local_patches[sheep.x][sheep.y];
+                Patch &currentPatch = local_patches[sheep.x * COLS + sheep.y];
                 sheep.eatGrass(currentPatch);
                 if (sheep.energy >= 0) {
                     Sheep::sheepFlock.push_back(sheep);
@@ -205,7 +235,7 @@ void exchangeAnimals (std::vector<std::vector<Patch>>& local_patches, int my_ran
         if (numSheepRecieved > 0) {
             for (Sheep &sheep : sheepFromAbove) {
                 // std::cout << "**Process: " << my_rank << " recieved sheep at (" << sheep.x << "," << sheep.y << ") with energy: " << sheep.energy << " from above\n";
-                Patch &currentPatch = local_patches[sheep.x][sheep.y];
+                Patch &currentPatch = local_patches[sheep.x * COLS + sheep.y];
                 sheep.eatGrass(currentPatch);
                 if (sheep.energy >= 0) {
                     Sheep::sheepFlock.push_back(sheep);
@@ -259,7 +289,7 @@ void exchangeAnimals (std::vector<std::vector<Patch>>& local_patches, int my_ran
     }
 }
 
-void go (std::vector<std::vector<Patch>>& local_patches, int my_rank, int world_size, int rows_per_rank, MPI_Status& status, MPI_Datatype MPI_Sheep, MPI_Datatype MPI_Wolf) {
+void go (std::vector<Patch>& local_patches, int my_rank, int world_size, int rows_per_rank, MPI_Status& status, MPI_Datatype MPI_Sheep, MPI_Datatype MPI_Wolf) {
     ++ticks;
 
     // Simulate the sheep
@@ -290,7 +320,7 @@ void go (std::vector<std::vector<Patch>>& local_patches, int my_rank, int world_
         // handling sheep behavior when it doesn't need to be sent to another process
         else {
             if (modelVersion == SHEEP_WOLVES_GRASS) {
-                Patch &currentPatch = local_patches[sheep.x][sheep.y];
+                Patch &currentPatch = local_patches[sheep.x * COLS + sheep.y];
                 sheep.eatGrass(currentPatch); 
                 if (sheep.energy >= 0) {
                     newSheepFlock.push_back(sheep);
@@ -390,9 +420,17 @@ void go (std::vector<std::vector<Patch>>& local_patches, int my_rank, int world_
 
     // Grow the local grass
     if (modelVersion == SHEEP_WOLVES_GRASS) {
+        #pragma omp parallel for 
         for (int i = 0; i < rows_per_rank; ++i) {
-            for (int j = 0; j < COLS; ++j) {
-                local_patches[i][j].growGrass(grassRegrowthTime);
+            int j;
+            for (j = 0; j <= COLS - 4; j += 4) {
+                local_patches[i * COLS + j].growGrass(grassRegrowthTime);
+                local_patches[i * COLS + j + 1].growGrass(grassRegrowthTime);
+                local_patches[i * COLS + j + 2].growGrass(grassRegrowthTime);
+                local_patches[i * COLS + j + 3].growGrass(grassRegrowthTime);
+            }
+            for (; j < COLS; ++j) {
+                local_patches[i * COLS + j].growGrass(grassRegrowthTime);
             }
         }
     }
@@ -420,10 +458,8 @@ int main (int argc, char** argv) {
     MPI_Comm_size(MPI_COMM_WORLD, &world_size);
 
     int rows_per_rank = ROWS / world_size;
-    int my_start_row = my_rank * rows_per_rank;
-    int my_end_row = (my_rank == world_size - 1) ? ROWS : (my_rank + 1) * rows_per_rank;
 
-    std::vector<std::vector<Patch>> local_patches(rows_per_rank, std::vector<Patch>(COLS));
+    std::vector<Patch> local_patches(rows_per_rank * COLS);
     setup(local_patches, rows_per_rank, world_size);
     // std::cout << "Hello from process: " << my_rank << " out of " << world_size << " processes\n";
     displayLabels(my_rank);
@@ -461,7 +497,7 @@ int main (int argc, char** argv) {
         MPI_Allreduce(&local_sheep_count, &total_sheep_count, 1, MPI_INT, MPI_SUM, MPI_COMM_WORLD);
         MPI_Allreduce(&local_wolf_count, &total_wolf_count, 1, MPI_INT, MPI_SUM, MPI_COMM_WORLD);
         counter++;
-        if (counter >= 1) { //2500 was benchmark for non-MPI
+        if (counter >= 5) { //2500 was benchmark for non-MPI
             break;
         }
     }
