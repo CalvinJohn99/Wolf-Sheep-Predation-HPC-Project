@@ -10,6 +10,7 @@
 #include <chrono>
 #include "declare_env.h"
 #include "util.h"
+#include <fstream>
 
 std::vector<std::vector<Patch>> patches(ROWS, std::vector<Patch>(COLS));
 int ticks = 0;
@@ -51,6 +52,8 @@ int grass() {
 }
 
 void setup () {
+    std::ofstream file("simulation_data.csv", std::ofstream::out | std::ofstream::trunc);
+    file.close();
 
     // setup grass patches if grass needs to regrow and be consumed by sheep
     for (int i = 0; i < ROWS; ++i) {
@@ -83,6 +86,27 @@ void setup () {
 
     displayLabels();
     ticks = 0;
+}
+
+void saveSimulationState(int tick) { 
+    std::ofstream file("simulation_data.csv", std::ios::app);
+    file << "Tick," << tick << "\n";
+    for (const auto &wolf : Wolf::wolfPack) {
+        file << "Wolf," << wolf.x << "," << wolf.y << "," << wolf.energy << "\n";
+    }
+    for (const auto &sheep : Sheep::sheepFlock) {
+        file << "Sheep," << sheep.x << "," << sheep.y << "," << sheep.energy << "\n";
+    }
+    for (int i = 0; i < ROWS; ++i) {
+        for (int j = 0; j < COLS; ++j) {
+            if (patches[i][j].getColor() == Patch::Color::Green) {
+                file << "Patch," << i << "," << j << "\n";
+            } else {
+                // file << "Patch," << i << "," << j << ",Brown\n";
+            }
+        }
+    }
+    file.close();
 }
 
 void go () {
@@ -150,32 +174,34 @@ void go () {
     displayLabels();
     std::cout << "Green Patch Count: " << grass() << "\n";
     std::cout << "Ticks: " << ticks << "\n";
+    saveSimulationState(ticks);
 }
 
 int main () {
     std::chrono::steady_clock::time_point startTime = std::chrono::steady_clock::now();
 
     setup();
+    saveSimulationState(ticks);
 
     int counter = 0;
     while (true) {
-      std::cout << "Checking conditions...\n";
+        std::cout << "Checking conditions...\n";
 
-      if (Wolf::wolfPack.empty() && (int) Sheep::sheepFlock.size() > maxSheep) {
-        std::cout << "The sheep have inherited the earth" << "\n";
-        break;
-      }
-      if (Sheep::sheepFlock.empty() && Wolf::wolfPack.empty()) {
-            std::cout << "All sheep and wolves are gone!" << "\n";
+        if (Wolf::wolfPack.empty() && (int) Sheep::sheepFlock.size() > maxSheep) {
+            std::cout << "The sheep have inherited the earth" << "\n";
             break;
-      }
+        }
+        if (Sheep::sheepFlock.empty() && Wolf::wolfPack.empty()) {
+                std::cout << "All sheep and wolves are gone!" << "\n";
+                break;
+        }
 
-      go();
-      counter++;
+        go();
+        counter++;
 
-      if (counter >= 1) {
-        break;
-      }
+        if (counter >= 500) {
+            break;
+        }
     }
 
     std::chrono::steady_clock::time_point stopTime = std::chrono::steady_clock::now();
