@@ -387,7 +387,8 @@ void go (std::vector<Patch>& local_patches, int my_rank, int world_size, int row
             }
         }
     }
-    Sheep::sheepFlock = newSheepFlock;
+    std::swap(sheepFlock, nextSheepFlock);
+    sheepCount = nextSheepCount;
     
     // Simulate the wolves
     std::vector<Wolf> newWolfPack;
