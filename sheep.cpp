@@ -8,12 +8,10 @@
 #include <cstdlib>
 #include "util.h"
 
-Sheep::Sheep() : Animal() {
-    this->energy = rand_int(0, 2 * sheepGainFromFood - 1);
-    this->x = rand_int(0, ROWS-1);
-    this->y = rand_int(0, COLS-1);
-}
-Sheep::Sheep(int energy) : Animal(energy) {}
+std::vector<Sheep> Sheep::sheepFlock;
+
+Sheep::Sheep() : Animal() {}
+Sheep::Sheep(int energy, int rows) : Animal(energy, rows) {}
 Sheep::Sheep(int energy, int x, int y) : Animal(energy, x, y) {}
 
 void Sheep::eatGrass(Patch &patch) {
@@ -32,14 +30,14 @@ void Sheep::eatGrass(Patch &patch) {
     }
 }
 
-Sheep Sheep::reproduceSheep() {
+Sheep Sheep::reproduceSheep(int my_rank, int world_size, int rows_per_rank) {
     int offspringEnergy = this->energy / 2;
     int offspringX = this->x;
     int offspringY = this->y;
     this->energy /= 2; 
 
     Sheep offspring(offspringEnergy, offspringX, offspringY);
-    offspring.move();
+    offspring.move(my_rank, world_size, rows_per_rank);
     return offspring;  
 
 }

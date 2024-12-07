@@ -8,13 +8,15 @@
 
 class Wolf : public Animal {
     public:
+        static std::vector<Wolf> wolfPack;
+
         Wolf();
-        Wolf(int energy);
+        Wolf(int energy, int rows);
         Wolf(int energy , int x, int y);
 
         void eatSheep(Sheep &sheep);
 
-        Wolf reproduceWolf();
+        Wolf reproduceWolf(int my_rank, int world_size, int rows_per_rank);
 };
 
 #endif
