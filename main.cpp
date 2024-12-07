@@ -1,4 +1,6 @@
 #include <mpi.h>
+#include <sstream>
+#include <fstream>
 #include <omp.h>
 #include <iostream>
 #include <string>
@@ -94,8 +96,12 @@ int grass(const std::vector<Patch>& local_patches, int rows_per_rank) {
     return greenCount;
 }
 
-void setup (std::vector<Patch>& local_patches, int rows_per_rank, int world_size) {
-
+void setup (std::vector<Patch>& local_patches, int rows_per_rank, int world_size, int my_rank) {
+    std::ostringstream oss;
+    oss << "simulation_data_" << my_rank << ".csv";
+    std::string filename = oss.str();
+    std::ofstream file(filename, std::ofstream::out | std::ofstream::trunc);
+    file.close();
     // setup grass patches if grass needs to regrow and be consumed by sheep
     int unroll_factor = 4;
     for (int i = 0; i < rows_per_rank; ++i) {
@@ -148,6 +154,29 @@ void setup (std::vector<Patch>& local_patches, int rows_per_rank, int world_size
 
     //displayLabels();
     ticks = 0;
+}
+
+void saveSimulationState(int tick, int my_rank, int rows_per_rank, std::vector<Patch>& local_patches) { 
+    std::ostringstream oss;
+    oss << "simulation_data_" << my_rank << ".csv";
+    std::string filename = oss.str();
+    std::ofstream file(filename, std::ios::app);
+    file << "Tick," << tick << "\n";
+    int ammend_xcoor = rows_per_rank * my_rank;
+    for (const auto &wolf : Wolf::wolfPack) {
+        file << "Wolf," << wolf.x + ammend_xcoor << "," << wolf.y << "," << wolf.energy << "\n";
+    }
+    for (const auto &sheep : Sheep::sheepFlock) {
+        file << "Sheep," << sheep.x + ammend_xcoor << "," << sheep.y << "," << sheep.energy << "\n";
+    }
+    for (int i = 0; i < rows_per_rank; ++i) {
+        for (int j = 0; j < COLS; ++j) {
+            if (local_patches[i * COLS + j].getColor() == Patch::Color::Green) {
+                file << "Patch," << i + ammend_xcoor << "," << j << "\n";
+            }
+        }
+    }
+    file.close();
 }
 
 void exchangeAnimals (std::vector<Patch>& local_patches, int my_rank, int world_size, int rows_per_rank, std::vector<Sheep>& sendSheepUp, std::vector<Sheep>& sendSheepDown, std::vector<Wolf>& sendWolfUp, std::vector<Wolf>& sendWolfDown, MPI_Status& status, MPI_Datatype MPI_Sheep, MPI_Datatype MPI_Wolf) {
@@ -443,6 +472,7 @@ void go (std::vector<Patch>& local_patches, int my_rank, int world_size, int row
         std::cout << "Total Green Patch Count: " << total_green_count << "\n";
         std::cout << "Ticks: " << ticks << "\n";
     }
+    saveSimulationState(ticks, my_rank, rows_per_rank, local_patches);
 }
 
 int main (int argc, char** argv) {
@@ -460,7 +490,8 @@ int main (int argc, char** argv) {
     int rows_per_rank = ROWS / world_size;
 
     std::vector<Patch> local_patches(rows_per_rank * COLS);
-    setup(local_patches, rows_per_rank, world_size);
+    setup(local_patches, rows_per_rank, world_size, my_rank);
+    saveSimulationState(ticks, my_rank, rows_per_rank, local_patches);
     // std::cout << "Hello from process: " << my_rank << " out of " << world_size << " processes\n";
     displayLabels(my_rank);
     // MPI_Barrier(MPI_COMM_WORLD);
