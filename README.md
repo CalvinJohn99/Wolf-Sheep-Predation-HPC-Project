@@ -34,6 +34,12 @@ I benchmarked the base code for 2 worlds:
 ![10ticks_30000grid_Non_MPI](https://github.com/user-attachments/assets/509479a9-33bf-44c6-9ceb-c45acb266d3c)
 as seen above, as the problem size increases, performance degrades even with much less ticks...
 
+## MPI Model
+Used MPI to split the simulation world, i.e., the 2D Grid world of patches, across each process and appropriately transferred animals between the processes when they move beyond their respective grid boundaries each tick. I visualized the MPI code in a similar manner to the base code and verified that the animals are moving between nodes/processes appropriately. There are 2 nodes in this [visualization](https://www.youtube.com/watch?v=DfddploUrGA) setup for a 100x100 grid. The yellow rows indicate the rows 49 and 50 (row 0 of the second node). Animals that move between rows 49 and 50 were actually sent between the nodes for inter-node communication with MPI.
+
+I benchamrked the MPI code for the same 2 worlds as the base code: 
+- 5000 ticks with a 100x100 grid (initially, 100 sheep & 50 wolves)
+- 10 ticks with a 30000x30000 grid (initially, 30000 sheep & 15000 wolves)
 
 ## Model Visualization for 500 Ticks
 ![wolf-sheep-predation](https://github.com/user-attachments/assets/74549b42-080d-465b-95af-7c7a354637bd)
