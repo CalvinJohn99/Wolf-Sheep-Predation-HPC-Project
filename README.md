@@ -4,6 +4,7 @@
 
 ## Model Introduction
 ![wolf-sheep-predation](https://github.com/user-attachments/assets/74549b42-080d-465b-95af-7c7a354637bd)
+Watch the full visualization on youtube [here](https://www.youtube.com/watch?v=3hkthotYpto)
 
 The aim of the above wolf-sheep-predation model is to simulate stable predator prey dynamics between wolf and sheep.
 
@@ -25,7 +26,7 @@ Important Model Parameters:
 
 ## Model Visualization for 500 Ticks
 ![wolf-sheep-predation](https://github.com/user-attachments/assets/74549b42-080d-465b-95af-7c7a354637bd)
-Watch the visualization on youtube [here](https://www.youtube.com/watch?v=3hkthotYpto)
+Watch the full visualization on youtube [here](https://www.youtube.com/watch?v=3hkthotYpto)
 
 ## Model Visualization with MPI
 Watch the visualization on youtube [here](https://www.youtube.com/watch?v=DfddploUrGA)
