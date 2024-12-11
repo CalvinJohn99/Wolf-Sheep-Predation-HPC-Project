@@ -24,6 +24,17 @@ Important Model Parameters:
 - SHEEP-REPRODUCE, WOLF-REPRODUCE: Amount of energy sheep gain from each grass patch eaten, amount of energy wolves gain for eating one sheep respectively.
 - GRASS-REGROWTH-TIME: Time taken for grass to regrow.
 
+## Base Code
+I benchmarked the base code for 2 worlds: 
+- 5000 ticks with a 100x100 grid (initially, 100 sheep & 50 wolves)
+- 10 ticks with a 30000x30000 grid (initially, 30000 sheep & 15000 wolves)
+
+**Observations:**
+![5000ticks_100grid_Non_MPI](https://github.com/user-attachments/assets/d2bd0419-c80e-4bc1-b6d1-18de927f5002)
+![10ticks_30000grid_Non_MPI](https://github.com/user-attachments/assets/509479a9-33bf-44c6-9ceb-c45acb266d3c)
+as seen above, as the problem size increases, performance degrades even with much less ticks...
+
+
 ## Model Visualization for 500 Ticks
 ![wolf-sheep-predation](https://github.com/user-attachments/assets/74549b42-080d-465b-95af-7c7a354637bd)
 Watch the full visualization on youtube [here](https://www.youtube.com/watch?v=3hkthotYpto)
