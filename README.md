@@ -29,9 +29,9 @@ I benchmarked the base code for 2 worlds:
 - 5000 ticks with a 100x100 grid (initially, 100 sheep & 50 wolves)
 - 10 ticks with a 30000x30000 grid (initially, 30000 sheep & 15000 wolves)
 
-**Observations:**
+**Observations:**<br>
 ![5000ticks_100grid_Non_MPI](https://github.com/user-attachments/assets/d2bd0419-c80e-4bc1-b6d1-18de927f5002)
-![10ticks_30000grid_Non_MPI](https://github.com/user-attachments/assets/509479a9-33bf-44c6-9ceb-c45acb266d3c)
+![10ticks_30000grid_Non_MPI](https://github.com/user-attachments/assets/509479a9-33bf-44c6-9ceb-c45acb266d3c)<br>
 as seen above, as the problem size increases, performance degrades even with much less ticks...
 
 ## MPI Model
@@ -40,6 +40,17 @@ Used MPI to split the simulation world, i.e., the 2D Grid world of patches, acro
 I benchamrked the MPI code for the same 2 worlds as the base code: 
 - 5000 ticks with a 100x100 grid (initially, 100 sheep & 50 wolves)
 - 10 ticks with a 30000x30000 grid (initially, 30000 sheep & 15000 wolves)
+
+## 4X Improvement with 4 Nodes!
+The world with 10 ticks, 30000x30000 grid performed ~4 times better than the base code when spltting the workload across 4 nodes: 
+![image](https://github.com/user-attachments/assets/24ba1877-2317-45b2-9ac3-c93f2242487b)
+
+But the world with 5000 ticks, 100x100 grid performed 3x worse with 4 nodes:
+![image (1)](https://github.com/user-attachments/assets/0641628e-7b13-4ca4-b8af-8353daa9c63e)
+
+The results are in alignment with MPI theory. MPI shines when we have larger grid worlds and less messaging overhead. In smaller worlds, the workload per process is relatively light and the MPI communication overhead dominates since we're sending animals between processes each tick. This is why we see a performance degradation in the smaller world. This is in alignment with Gustaffson's law since the larger workload benefitted from the extra processing power. Since MPI communication costs grow with the amount of data exchanges, I wonder if the performance improvements would be retained in the larger world...
+
+The results are also in alignment with Amdahl's law since the go() function accounts for at least ~90 of the codebase that can be parallelised and we have ~4x performance improvement with 4 nodes.
 
 ## Model Visualization for 500 Ticks
 ![wolf-sheep-predation](https://github.com/user-attachments/assets/74549b42-080d-465b-95af-7c7a354637bd)
