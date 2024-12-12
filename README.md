@@ -52,7 +52,7 @@ The world with 10 ticks, 30000x30000 grid performed ~4 times better than the bas
 But the world with 5000 ticks, 100x100 grid performed 3x worse with 4 nodes:
 ![image (1)](https://github.com/user-attachments/assets/0641628e-7b13-4ca4-b8af-8353daa9c63e)
 
-The results are in alignment with MPI theory. MPI shines when we have larger grid worlds and less messaging overhead. In smaller worlds, the workload per process is relatively light and the MPI communication overhead dominates since we're sending animals between processes each tick. This is why we see a performance degradation in the smaller world. This is in alignment with Gustaffson's law since the larger workload benefitted from the extra processing power. Since MPI communication costs grow with the amount of data exchanges, I wonder if the performance improvements would be retained in the larger world...
+The results are in alignment with MPI theory. MPI shines when we have larger grid worlds and less messaging overhead. In smaller worlds, the workload per process is relatively light and the MPI communication overhead dominates since we're sending animals between processes each tick. This is why we see a performance degradation in the smaller world. This is in alignment with Gustaffson's law since the larger workload benefitted from the extra processing power. Since MPI communication costs grow with the amount of data exchanges, I wonder if the performance improvements would be retained in the larger world as the number of ticks continue to grow...
 
 The results are also in alignment with Amdahl's law since the go() function accounts for at least ~90 of the codebase that can be parallelised and we have ~4x performance improvement with 4 nodes.
 
