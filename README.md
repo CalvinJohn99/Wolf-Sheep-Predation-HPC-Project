@@ -70,4 +70,11 @@ Applied the following Optimization techniques to further improve performance:
 - Openmp for threading
 - Loop unrolling
 
-I did try to use blocking/tiling for improving the cache performance but this model doesn't seem to be the best scenario for it and I was getting unreliable results when using it that didn't really improve performance.
+I did try to use blocking/tiling for improving the cache performance but this model doesn't seem to be the best scenario for it and I was getting unreliable results when using it and it didn't really improve performance.
+
+The before and after performance was benchmarked for a 30000x30000 grid world (initially, 30000 sheep & 15000 wolves) for 3 ticks and 2 separate MPI nodes. This resulted in an additional **7 seconds** shaved off of the runtime.
+Before:
+![image (4)](https://github.com/user-attachments/assets/bee3a941-6f8c-4ea7-86d1-46214d997cf9)
+After:
+![image (5)](https://github.com/user-attachments/assets/0fa55a34-674f-4506-a6e4-246407346635)
+
