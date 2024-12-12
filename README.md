@@ -4,6 +4,8 @@
 
 Once you have the code downloaded, you can adjust model parameters in declare_env.cpp and run the simulation with `make` and `./main` in the terminal. Use `mpiexec -n 4 ./main` to run the simulation with 4 nodes. To visualize the code, you will have to adjust the plot size in visualize_simulation.py to match the size in declare_env.cpp before running the python script. You can always checkout into the `vector_non_mpi` branch to run the simulation with the base code for performance comparisons.
 
+Please comment out the usage of saveSimulationState() function within the code when testing performance, as this is only used for visualization purposes and can significantly slow the speed of the code runtime.
+
 ## Model Introduction
 ![wolf-sheep-predation](https://github.com/user-attachments/assets/74549b42-080d-465b-95af-7c7a354637bd)
 Watch the full visualization on youtube [here](https://www.youtube.com/watch?v=3hkthotYpto)
