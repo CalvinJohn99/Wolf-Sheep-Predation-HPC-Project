@@ -56,9 +56,18 @@ The results are in alignment with MPI theory. MPI shines when we have larger gri
 
 The results are also in alignment with Amdahl's law since the go() function accounts for at least ~90 of the codebase that can be parallelised and we have ~4x performance improvement with 4 nodes.
 
-## Model Visualization for 500 Ticks
-![wolf-sheep-predation](https://github.com/user-attachments/assets/74549b42-080d-465b-95af-7c7a354637bd)
-Watch the full visualization on youtube [here](https://www.youtube.com/watch?v=3hkthotYpto)
+## Further Optimizations
+I used gprof and gprof2dot to profile my code and generate an image that can help me easily identify any additional performance bottlenecks.
 
-## Model Visualization with MPI
-Watch the visualization on youtube [here](https://www.youtube.com/watch?v=DfddploUrGA)
+![image (2)](https://github.com/user-attachments/assets/07740fe5-69e7-41f6-af27-2e59cd6211b0)
+![image (3)](https://github.com/user-attachments/assets/e10e8e4b-6f2e-4b53-b014-df0f2ffda104)
+
+We find that the performance bottlenecks were from the following functions: 
+- go() : grass() & growGrass()
+- setup()
+
+Applied the following Optimization techniques to further improve performance:
+- Openmp for threading
+- Loop unrolling
+
+I did try to use blocking/tiling for improving the cache performance but this model doesn't seem to be the best scenario for it and I was getting unreliable results when using it that didn't really improve performance.
